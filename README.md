@@ -10,7 +10,7 @@ Rosane Silva - silvaros@biof.ufrj.br
 
 The following programs should be installed and *in* your $PATH:
 
-* Python xx
+* Python 3.7
 * Fastqc
 * TrimGalore
 * Bowtie2
