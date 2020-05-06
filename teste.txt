@@ -1,14 +1,14 @@
 python mgpipe.py \
 --project teste \
---forward_read mg_reads/Env5000GE_R1.fastq \
+--forward_read mg_reads/Hum5000GE_R1.fastq \
 --read_mode single-end \
 --alignment_mode end-to-end \
 --alignment single.sam
 
 python mgpipe.py \
 --project teste \
---forward_read mg_reads/Env5000GE_R1.fastq \
---reverse_read mg_reads/Env5000GE_R2.fastq \
+--forward_read mg_reads/Hum5000GE_R1.fastq  \
+--reverse_read mg_reads/Hum5000GE_R2.fastq  \
 --read_mode paired-end \
 --alignment_mode end-to-end \
 --alignment paired.sam

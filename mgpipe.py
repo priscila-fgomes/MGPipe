@@ -39,7 +39,7 @@ def main() :
                 arguments['nt'],
                 arguments['overwrite'])
 
-    run_sam(arguments['alignment'],arguments['depth'])
+    run_sam(arguments['project'],arguments['alignment'],arguments['depth'])
 
 # Classes
 class bcolors:
@@ -56,37 +56,39 @@ class bcolors:
 def write_done(module,routine) :
     print(f"\033[1;32;40m [ DONE ] \033[0;37;40m {module} - {routine} ")
 
-def run_sam(alignment,depth): 
+def run_sam(project,alignment,depth): 
 
     bam=alignment.split('.sam')[0]+'.bam'
     cmd=['samtools','view','-bS',alignment,'-o',bam]
     subprocess.call(cmd)   
-    write_done('Samtools','view')
+    write_done('Samtools','SAM to BAM conversion')
 
     bam_sorted=alignment.split('.sam')[0]+'_sorted.bam'   
     cmd=['samtools','sort',bam,'-o',bam_sorted]
     subprocess.call(cmd)
-    write_done('Samtools','sort')
+    write_done('Samtools','Sort BAM')
 
     cmd=['samtools','index',bam_sorted]
     subprocess.call(cmd)
-    write_done('Samtools','index')
+    write_done('Samtools','Index BAM')
 
     cmd=['samtools','flagstat',bam_sorted]
-    with open("alignment.log", "w") as file:
+    with open(os.path.join(project,"alignment.log"), "w") as file:
         subprocess.run(cmd, stdout=file)
-    write_done('Samtools','flagstat')
-
-    cmd=['samtools','idxstats', bam_sorted]
-    with open("report.tsv", "w") as file:
-        subprocess.run(cmd, stdout=file)
-    write_done('Samtools','idxstats')
+    write_done('Samtools','Alignment log')
 
     if depth :    
         cmd=['samtools','depth', bam_sorted]
-        with open("depth.tsv", "w") as file:
+        with open(os.path.join(project,"depth.tsv"), "w") as file:
             subprocess.run(cmd, stdout=file)
-        write_done('Samtools','Depth')
+        write_done('Samtools','Alignment depth')
+
+    cmd=['samtools','idxstats', bam_sorted]
+    with open(os.path.join(project,"report.tsv"), "w") as file:
+        subprocess.run(cmd, stdout=file)
+    write_done('Samtools','Alignment report')
+
+    
 
 
 def run_bowtie2(project,read_mode,r1,r2,alignment_mode,preset_option,alignment,nt,overwrite) :
@@ -126,7 +128,7 @@ def run_bowtie2(project,read_mode,r1,r2,alignment_mode,preset_option,alignment,n
         print('ERROR: Bowtie2 failed. {alignment} not created|')
         quit() 
 
-    return  write_done('Bowtie','Alignment')
+    return  write_done('Bowtie2','Alignment')
 
 
 
@@ -155,15 +157,9 @@ def make_folders(project) :
     Creates "reports" and "alignment" folders at project folder
     '''
     try :
-        os.makedirs(os.path.join(project,'reports'))
+        os.makedirs(os.path.join(project))
     except :
         pass
-
-    try :
-        os.makedirs(os.path.join(project,'alignments'))
-    except :
-        pass
-    
 
 
 def get_cmd_line():
@@ -254,6 +250,17 @@ def get_cmd_line():
                         default  = False,
                         help     = 'Write Samtools depth')
 
+    # Fastqc
+    parser.add_argument('--fastqc',
+                        action   = 'store_true',
+                        dest     = 'fastqc',
+                        required = False,
+                        default  = False,
+                        help     = 'Run FastQC')
+
+    parser.add_argument('--fastqc-folder',
+                        action   = 'store',
+                        help     = 'Folder containing FastQC files.')
     
 
     arg_dict = vars(parser.parse_args())
@@ -261,6 +268,8 @@ def get_cmd_line():
     # Update arguments
     if arg_dict['alignment_mode'] == 'local' :
             arg_dict.update({'preset_option': arg_dict['preset_option']+'-local'})
+
+    arg_dict.update({'alignment': os.path.join(arg_dict['project'],arg_dict['alignment'])})
 
 
     return arg_dict
