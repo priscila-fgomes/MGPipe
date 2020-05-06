@@ -18,8 +18,9 @@ The following programs should be installed and *in* your $PATH:
 * Multiqc
 * R
 
-Installation instructions:  
-For help instructions:  
+For installation instructions, check INSTALL.md 
+
+Usage:  
 * mgpipe.py -h
 
 
