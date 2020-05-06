@@ -10,4 +10,19 @@ Victor Hugo Giordano Dias - victorhdias@biof.ufrj.br
 
 Rosane Silva - silvaros@biof.ufrj.br
 
+The following programs should be installed and *in* your $PATH:
+-Python xx
+-Fastqc
+-TrimGalore
+-Bowtie2
+-Samtools
+-Multiqc
+-R
+
+Installation instructions:
+
+
+For help instructions:
+mgpipe.py -h
+
 
