@@ -1,9 +1,26 @@
-Metagenomic Pipeline
+Automated analysis of metagenomics amplicons sequencing reads
 
-Contributors
+Author:
 Priscila da Silva Figueiredo Celestino Gomes - pfigueiredo@biof.ufrj.br
-Diego Enry Barreto Gomes - dgomes@pq.cnpq.br
-Victor Hugo Giordano Dias - victorhdias@biof.ufrj.br
-Rosane Silva - silvaros@biof.ufrj.br
+
+Contributors:
+Diego Enry Barreto Gomes - dgomes@pq.cnpq.br  
+Victor Hugo Giordano Dias - victorhdias@biof.ufrj.br  
+Rosane Silva - silvaros@biof.ufrj.br  
+
+The following programs should be installed and *in* your $PATH:
+
+* Python 3.7
+* Fastqc
+* TrimGalore
+* Bowtie2
+* Samtools
+* Multiqc
+* R
+
+For installation instructions, check INSTALL.md 
+
+Usage:  
+* mgpipe.py -h
 
 
