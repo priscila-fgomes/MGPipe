@@ -3,6 +3,7 @@ def run_fastqc(arguments) :
     import glob
     import subprocess   
     from time import time
+    from src.colors import bcolors
 
     # List all files from reads_folder
     fastq_files=glob.glob(arguments['reads_folder']+'/*.fastq')
@@ -21,7 +22,6 @@ def run_fastqc(arguments) :
 [Running] FastQC for {len(fastq_files)} reads found in {arguments['reads_folder']}
           Using {arguments['nt']} CPU threads, Please Wait.''')
 
-
     start_time = time()
 
     with open(os.path.join(arguments['reads_out_folder'],"fastqc.log"), "wb") as file:
@@ -31,3 +31,23 @@ def run_fastqc(arguments) :
     elapsed_time = end_time - start_time
     
     print(f'''{bcolors.GREEN}[  Done   ]{bcolors.ENDC} in {elapsed_time/60:5.2f} minutes\n''')
+
+    print (f'''Quality reports written on {arguments['reads_out_folder']} ''')
+
+# MultiQC report ############
+    print(f'''
+[Running] Generating MultiQC report ...''')
+
+
+    cmd=['multiqc','-f',arguments['reads_out_folder'],'--outdir',arguments['reads_out_folder']]
+    
+    start_time = time()
+    subprocess.run(cmd, stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    end_time = time()
+    elapsed_time = end_time - start_time
+
+    print(f'''{bcolors.GREEN}[  Done   ]{bcolors.ENDC} in {elapsed_time/60:5.2f} minutes\n''')
+
+    print('''open MultiQC report with:
+
+ firefox test/output/multiqc_report.html''')

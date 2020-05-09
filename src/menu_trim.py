@@ -1,16 +1,22 @@
-def menu_trim() :
+def menu_trim(arguments):
+    from src.colors import bcolors
 
-    option=str(input('Trim sequences ? [Y/N]: '))
+    print(f'''{bcolors.BLUE}Choose a read mode:{bcolors.ENDC}
+[1] - Single-end
+[2] - Paired-end
+[q] - Quit
+''')
+    option=str(input(f'{bcolors.BOLD}Read mode: {bcolors.ENDC}'))
 
-    if option.lower() == 'y' :
-        return True
+    if option == '1' :
+        return 'single-end'
         
-    elif option.lower() == 'n' :
-        return False
+    elif option == '2' :
+        return 'paired-end'
     
     elif option.lower() in ['q'] :
         print('Quit. See you latter')
         quit()
     else :
         print('Invalid option')
-        menu_trim()
+        menu_read_mode()

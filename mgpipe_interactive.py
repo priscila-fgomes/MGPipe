@@ -14,6 +14,7 @@ from src.menu_alignment import *
 
 # Run modules
 from src.run_fastqc      import *
+from src.run_trim        import *
 from src.run_bowtie2     import *
 from src.run_sam         import *
 
@@ -52,7 +53,7 @@ if arguments['run_mode'] == 'quality-control' :
 
     run_fastqc(arguments)
     
-    arguments['trim'] = menu_trim()  
+    
 
 
 # Alignment Mode 
@@ -85,3 +86,8 @@ if arguments['run_mode'] == 'alignment' :
     run_bowtie2(arguments)
 
     run_sam(arguments)
+
+
+# Alignment Mode 
+if arguments['run_mode'] == 'trim' : 
+    run_trim(arguments)

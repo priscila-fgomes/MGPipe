@@ -21,12 +21,13 @@ def get_cmd_line():
                         action   = 'store',
                         dest     = 'run_mode',
                         metavar  = '',
-                        choices  = ['alignment','quality-control'],
-                        help     = 'Run mode [alignment or quality-control]')
+                        choices  = ['quality-control','trim','alignment'],
+                        help     = 'Run mode [quality-control, tim or alignment]')
 
-    general.add_argument('-nt',
+    general.add_argument('-nt','--threads',
                         action   = 'store',
                         dest     = 'nt',
+                        metavar  = '',
                         default  = str(os.cpu_count()),
                         help     = 'Number of CPU threads')
 
@@ -113,17 +114,22 @@ def get_cmd_line():
                         metavar  = '',
                         help     = 'Folder containing FastQC output files.')
 
+    # Trim_galore
+    trim_galore = parser.add_argument_group('Trim','Specific arguments for Trimming')
+    
+    trim_galore.add_argument('--length',
+                        action   = 'store',
+                        dest     = 'length',
+                        metavar  = '',
+                        help     = 'Trim length.')
+
+    trim_galore.add_argument('--adapter',
+                        action   = 'store',
+                        dest     = 'adapter',
+                        metavar  = '',
+                        help     = 'Adapter sequence. (eg. "AAAAA")')
+
     arg_dict = vars(parser.parse_args())
-
-    # Update arguments
-    if arg_dict['alignment_mode'] == 'local' :
-            arg_dict.update({'preset_option': arg_dict['preset_option']+'-local'})
-
-#    if arg_dict['project'] :
-#        arg_dict.update({'alignment': os.path.join(arg_dict['project'],arg_dict['alignment'])})
-
-#    if arg_dict['reads_out_folder'] :
-#        arg_dict.update({'reads_out_folder': os.path.join(arg_dict['project'],arg_dict['reads_out_folder'])})
 
     return arg_dict
 
