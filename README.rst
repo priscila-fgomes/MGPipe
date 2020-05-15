@@ -4,22 +4,22 @@
 MGPipe: Automated analysis of metagenomics amplicons sequencing reads
 =====================================================================
 
+Supervision:
+------------
+@ Universidade Federal do Rio de Janeiro - UFRJ
 
-Author:
+* Rosane Silva - silvaros@biof.ufrj.br  
 
-
-Priscila da Silva Figueiredo Celestino Gomes - pfigueiredo@biof.ufrj.br
+Development lead
+----------------
+* Priscila da Silva Figueiredo Celestino Gomes - pfigueiredo@biof.ufrj.br
 
 Contributors:
+-------------
+* Diego Enry Barreto Gomes - dgomes@pq.cnpq.br
+* Victor Hugo Giordano Dias - victorhdias@biof.ufrj.br 
 
 
-Diego Enry Barreto Gomes - dgomes@pq.cnpq.br
-
-
-Victor Hugo Giordano Dias - victorhdias@biof.ufrj.br 
-
-
-Rosane Silva - silvaros@biof.ufrj.br  
 
 
 
