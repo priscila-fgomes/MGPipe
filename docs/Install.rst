@@ -43,4 +43,4 @@ Detailed install
   # Addtional DataScience and plotting tools
   conda install pandas 
   conda install seaborn
-```
+
