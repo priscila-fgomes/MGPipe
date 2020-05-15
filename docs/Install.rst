@@ -1,35 +1,46 @@
-# Quick Install for the impacient
-conda create -n MGPipe python=3.7
-conda activate MGPipe
-conda install -c bioconda samtools bowtie2 fastqc trim-galore 
-conda install pandas seaborn 
+.. _documenting:
+===============================
+Installation instructions
+===============================
+
+Quick Install 
+--------------------------------
+
+.. code-block:: bash
+
+    conda create -n MGPipe python=3.7
+    conda activate MGPipe
+    conda install -y -c bioconda samtools bowtie2 fastqc trim-galore pandas seaborn plotly
+    pip install multiqc
 
 
-# Installation instructions
-```bash  
-# Create an dedicated environment using a python version that works with all modules.
-conda create -n MGPipe python=3.7
+Detailed install
+--------------------------------
+.. code-block:: bash
 
-# Activate the MGPipe environment
-conda activate MGPipe
+  # Create an dedicated environment using a python version that works with all modules.
+  conda create -n MGPipe python=3.7
 
-# Bowtie2 is bla bla bla. Install with:
-conda install -c bioconda bowtie2
+  # Activate the MGPipe environment
+  conda activate MGPipe
 
-# Samtools is bla bla bla. Install with:
-conda install -c bioconda samtools
+  # Bowtie2 is bla bla bla. Install with:
+  conda install -c bioconda bowtie2
 
-# Fastqc processes bla bla bla
-conda install -c bioconda fastqc
+  # Samtools is bla bla bla. Install with:
+  conda install -c bioconda samtools
 
-# Trim-Galore 
-conda install -c bioconda trim-galore
+  # Fastqc processes bla bla bla
+  conda install -c bioconda fastqc
 
-# Multiqc 
-#conda install -c bioconda multiqc
-pip install multiqc
+  # Trim-Galore 
+  conda install -c bioconda trim-galore
 
-# Addtional DataScience and plotting tools
-conda install pandas 
-conda install seaborn
-```
+  # Multiqc 
+  #conda install -c bioconda multiqc
+  pip install multiqc
+
+  # Addtional DataScience and plotting tools
+  conda install pandas 
+  conda install seaborn
+
