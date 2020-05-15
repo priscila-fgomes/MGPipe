@@ -1,3 +1,4 @@
+.. _documenting:
 Automated analysis of metagenomics amplicons sequencing reads
 
 Author:
