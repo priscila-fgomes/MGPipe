@@ -1,13 +1,25 @@
 .. _documenting:
-Automated analysis of metagenomics amplicons sequencing reads
+
+=====================================================================
+MGPipe: Automated analysis of metagenomics amplicons sequencing reads
+=====================================================================
+
 
 Author:
 Priscila da Silva Figueiredo Celestino Gomes - pfigueiredo@biof.ufrj.br
 
 Contributors:
-Diego Enry Barreto Gomes - dgomes@pq.cnpq.br  
-Victor Hugo Giordano Dias - victorhdias@biof.ufrj.br  
+
+
+Diego Enry Barreto Gomes - dgomes@pq.cnpq.br
+
+
+Victor Hugo Giordano Dias - victorhdias@biof.ufrj.br 
+
+
 Rosane Silva - silvaros@biof.ufrj.br  
+
+
 
 (description)
 
@@ -15,7 +27,9 @@ Rosane Silva - silvaros@biof.ufrj.br
 
 For installation instructions, check INSTALL.rst on docs 
 
-Usage:  
-* mgpipe.py -h
+.. code-block:: bash 
+ 
+  # Usage:  
+  mgpipe.py -h
 
 
