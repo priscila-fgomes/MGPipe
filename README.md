@@ -8,17 +8,11 @@ Diego Enry Barreto Gomes - dgomes@pq.cnpq.br
 Victor Hugo Giordano Dias - victorhdias@biof.ufrj.br  
 Rosane Silva - silvaros@biof.ufrj.br  
 
-The following programs should be installed and *in* your $PATH:
+(description)
 
-* Python 3.7
-* Fastqc
-* TrimGalore
-* Bowtie2
-* Samtools
-* Multiqc
-* R
 
-For installation instructions, check INSTALL.md 
+
+For installation instructions, check INSTALL.rst on docs 
 
 Usage:  
 * mgpipe.py -h
