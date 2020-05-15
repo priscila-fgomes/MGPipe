@@ -6,6 +6,8 @@ MGPipe: Automated analysis of metagenomics amplicons sequencing reads
 
 
 Author:
+
+
 Priscila da Silva Figueiredo Celestino Gomes - pfigueiredo@biof.ufrj.br
 
 Contributors:
