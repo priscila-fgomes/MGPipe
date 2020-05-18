@@ -42,9 +42,46 @@ def get_cmd_line():
                         dest     = 'overwrite',
                         help     = 'Overwrite outputs')
     
+# Fastqc
+    fastqc = parser.add_argument_group('Quality Control','Specific arguments for FastQC')
+    
+    fastqc.add_argument('--reads_folder',
+                        action   = 'store',
+                        dest     = 'reads_folder',
+                        metavar  = '',
+                        help     = 'Folder containing FastQC files.')
+
+    fastqc.add_argument('--reads_out',
+                        action   = 'store',
+                        dest     = 'reads_out_folder',
+                        metavar  = '',
+                        help     = 'Folder containing FastQC output files.')
+
+ # Trim_galore
+    trim_galore = parser.add_argument_group('Trimming','Specific arguments for Trimming')
+    
+    trim_galore.add_argument('--adapter',
+                        action   = 'store',
+                        dest     = 'adapter',
+                        metavar  = '',
+                        help     = 'remove adapter sequence (eg. "AAAAA")')
+    
+    
+    trim_galore.add_argument('--length',
+                        action   = 'store',
+                        dest     = 'length',
+                        metavar  = '',
+                        help     = 'trim at fix sequence lenght.')
+
+    trim_galore.add_argument('--quality',
+                        action   = 'store',
+                        dest     = 'quality',
+                        metavar  = '',
+                        help     = 'trim by quality cutoff (eg. 20)')
+
 
     # Bowtie Alignment modes ( Must be one or other )
-    bowtie = parser.add_argument_group('Bowtie2','Specific arguments for Bowtie2')
+    bowtie = parser.add_argument_group('Alignment','Specific arguments for Bowtie2')
 
     # Bowtie specific arguments
     bowtie.add_argument('-rm','--read-mode',
@@ -92,42 +129,28 @@ def get_cmd_line():
                         help     = 'Output name for alignment')
 
 
-    # Samtools options
-    parser.add_argument('--depth',
+# Samtools options
+    samtools = parser.add_argument_group('Analyzes','Specific arguments for Samtools')
+    
+    samtools.add_argument('--depth',
                         action   = 'store_true',
                         dest     = 'depth',
-                        help     = 'Write Samtools depth')
+                        help     = 'Write alignment depth')
+
+    samtools.add_argument('--stats',
+                        action   = 'store_true',
+                        dest     = 'stats',
+                        help     = 'Write alignment log')
+
+    samtools.add_argument('--report',
+                        action   = 'store_true',
+                        dest     = 'report',
+                        help     = 'Write alignment report')
 
 
-    # Fastqc
-    fastqc = parser.add_argument_group('FastQ','Specific arguments for FastQC')
     
-    fastqc.add_argument('--reads_folder',
-                        action   = 'store',
-                        dest     = 'reads_folder',
-                        metavar  = '',
-                        help     = 'Folder containing FastQC files.')
 
-    fastqc.add_argument('--reads_out',
-                        action   = 'store',
-                        dest     = 'reads_out_folder',
-                        metavar  = '',
-                        help     = 'Folder containing FastQC output files.')
-
-    # Trim_galore
-    trim_galore = parser.add_argument_group('Trim','Specific arguments for Trimming')
-    
-    trim_galore.add_argument('--length',
-                        action   = 'store',
-                        dest     = 'length',
-                        metavar  = '',
-                        help     = 'Trim length.')
-
-    trim_galore.add_argument('--adapter',
-                        action   = 'store',
-                        dest     = 'adapter',
-                        metavar  = '',
-                        help     = 'Adapter sequence. (eg. "AAAAA")')
+   
 
     arg_dict = vars(parser.parse_args())
 

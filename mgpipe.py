@@ -1,279 +1,93 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-
-# Config
-
-
-# Imports -------------------------------------------------
+# 
 import os
-import sys
-import gzip
-import subprocess
-import argparse
 
-# Main Function
-def main() :
+#
+from src.colors import bcolors
+from src.welcome import welcome
+from src.get_cmd_line import get_cmd_line
 
-    # Get command line
-    arguments = get_cmd_line()
+# Menu/Configure modules
+from src.menu_run_mode  import *
+from src.menu_fastq     import *
+from src.menu_trim      import *
+from src.menu_alignment import *
+
+# Run modules
+from src.run_fastqc      import *
+from src.run_trim        import *
+from src.run_bowtie2     import *
+from src.run_sam         import *
+
+# summary
+from src.write_summary import *
+
+
+# A warm welcome to the users :) 
+welcome() 
+
+# Get command line arguments (if any)
+arguments = get_cmd_line()
+
+# Project
+if not arguments['project'] :
+    arguments.update({'project': str(input(f'{bcolors.BLUE}# Choose a project name:{bcolors.ENDC}\n'))})
+
+# Update alignment 
+arguments.update({'alignment': os.path.join(arguments['project'],arguments['alignment'])})
+
+if not os.path.isdir(arguments['project']) :
+    os.makedirs(arguments['project'])
+
+if not arguments['run_mode'] :
+    arguments.update({'run_mode': menu_run_mode()})
+
+# Quality control mode
+if arguments['run_mode'] == 'quality-control' : 
+    if not arguments['reads_folder'] :
+        arguments['reads_folder'] = menu_fastq()
     
-    write_summary(arguments['project'],
-                  arguments['read_mode'],
-                  arguments['r1'],
-                  arguments['r2'],
-                  arguments['alignment_mode'],
-                  arguments['preset_option'],
-                  arguments['alignment'],
-                  arguments['nt'])
+    if not arguments['reads_out_folder'] :
+        arguments['reads_out_folder'] = menu_fastq_out(arguments)
 
-    make_folders(arguments['project'])
+    arguments.update({'reads_out_folder': os.path.join(arguments['project'],arguments['reads_out_folder'])})
 
-    run_bowtie2(arguments['project'],
-                arguments['read_mode'],
-                arguments['r1'],
-                arguments['r2'],
-                arguments['alignment_mode'],
-                arguments['preset_option'],
-                arguments['alignment'],
-                arguments['nt'],
-                arguments['overwrite'])
-
-    run_sam(arguments['project'],arguments['alignment'],arguments['depth'])
-
-# Classes
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
-# Functions 
-def write_done(module,routine) :
-    print(f"\033[1;32;40m [ DONE ] \033[0;37;40m {module} - {routine} ")
-
-def run_sam(project,alignment,depth): 
-
-    bam=alignment.split('.sam')[0]+'.bam'
-    cmd=['samtools','view','-bS',alignment,'-o',bam]
-    subprocess.call(cmd)   
-    write_done('Samtools','SAM to BAM conversion')
-
-    bam_sorted=alignment.split('.sam')[0]+'_sorted.bam'   
-    cmd=['samtools','sort',bam,'-o',bam_sorted]
-    subprocess.call(cmd)
-    write_done('Samtools','Sort BAM')
-
-    cmd=['samtools','index',bam_sorted]
-    subprocess.call(cmd)
-    write_done('Samtools','Index BAM')
-
-    cmd=['samtools','flagstat',bam_sorted]
-    with open(os.path.join(project,"alignment.log"), "w") as file:
-        subprocess.run(cmd, stdout=file)
-    write_done('Samtools','Alignment log')
-
-    if depth :    
-        cmd=['samtools','depth', bam_sorted]
-        with open(os.path.join(project,"depth.tsv"), "w") as file:
-            subprocess.run(cmd, stdout=file)
-        write_done('Samtools','Alignment depth')
-
-    cmd=['samtools','idxstats', bam_sorted]
-    with open(os.path.join(project,"report.tsv"), "w") as file:
-        subprocess.run(cmd, stdout=file)
-    write_done('Samtools','Alignment report')
-
+    run_fastqc(arguments)
+    
     
 
 
-def run_bowtie2(project,read_mode,r1,r2,alignment_mode,preset_option,alignment,nt,overwrite) :
+# Alignment Mode 
+if arguments['run_mode'] == 'alignment' : 
 
-    if os.path.isfile(alignment) and not overwrite :
-        write_done('Bowtie2','Alignment')
-        return
-    
-    index_db=os.path.join(os.path.dirname(sys.argv[0]),'Index','DB')
-    
-    if read_mode in 'single-end' :
-        cmd=['bowtie2',
-            '-x',index_db,
-            '-U',r1,
-            '-q','--no-unal',
-            '--'+alignment_mode,
-            '--'+preset_option,
-            '-S',alignment,
-            '-p',str(nt)]
-    else :
-        cmd=['bowtie2',
-            '-x',index_db,
-            '-1',r1,
-            '-2',r2,
-            '-q','--no-unal',
-            '--'+alignment_mode,
-            '--'+preset_option,
-            '-S',alignment,
-            '-p',str(nt)]
-      
-    try :    
-        subprocess.run(cmd,stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-    except :
-        print(f"ERROR: Bowtie2 failed to run.")
-
-    if not os.path.isfile(alignment) :
-        print('ERROR: Bowtie2 failed. {alignment} not created|')
-        quit() 
-
-    return  write_done('Bowtie2','Alignment')
-
-
-
-def write_summary(project,read_mode,r1,r2,alignment_mode,preset_option,alignment,nt) :
-    print(f'''
-###################################
-# MG Pipe - Metagenimics Pipeline #
-###################################
-
-          Project : {project}
-
-       Input Mode : {read_mode}
-Forward Read (R1) : {r1}
-Reverse Read (R2) : {r2}
-
-   Alignment Mode : {alignment_mode}
-    Preset Option : {preset_option}
-
- Alignment Output : {alignment}
-      CPU Threads : {nt}
-
+#    if [arguments['read_mode'] or arguments['alignment_mode'] or arguments['preset'] or arguments['r1'] :
+    print (f'''{bcolors.WARNING}
+[Setup] Bowtie2 Alignment{bcolors.ENDC}
     ''')
 
-def make_folders(project) :
-    '''
-    Creates "reports" and "alignment" folders at project folder
-    '''
-    try :
-        os.makedirs(os.path.join(project))
-    except :
-        pass
+    if not arguments['read_mode'] :
+        arguments['read_mode'] = menu_read_mode()
 
+    if not arguments['alignment_mode'] :
+        arguments['alignment_mode'] = menu_alignment_mode()
 
-def get_cmd_line():
-    '''
-    Get the command line
-    '''
-    parser = argparse.ArgumentParser(description = 'MG-Pipe - Metagenomics Pipeline.')
+    if not arguments['preset'] :
+        arguments['preset'] = menu_preset()
+        if arguments['alignment_mode'] in ['local'] : 
+            arguments['preset'] = arguments['preset']+'-local'
+
+    if not arguments['r1'] :
+        arguments['r1'] = str(input('Forward read file(s): '))
+
+    if arguments['read_mode'] in ['paired-end'] and not arguments['r2'] :
+        arguments['r2'] = str(input('Reverse read file(s) '))   # Required if Paired ends.
+
+    write_summary(arguments)
     
-    # General arguments
-    parser.add_argument('-p','--project',
-                        action   = 'store',
-                        dest     = 'project',
-                        required = True,
-                        help     = 'Project folder.')
+    run_bowtie2(arguments)
 
-    parser.add_argument('-O','--overwrite',
-                        action   = 'store_true',
-                        dest     = 'overwrite',
-                        required = False,
-                        default  = False,
-                        help     = 'Overwrite outputs')
-    
-
-    # Bowtie specific arguments
-    parser.add_argument('-rm','--read_mode',
-                        action   = 'store',
-                        dest     = 'read_mode',
-                        required = False,
-                        default  = 'single-end',
-                        choices  = ('single-end','paired-end'),
-                        help     = 'Read mode')
-
-    parser.add_argument('-r1','--forward_read',
-                        action   = 'store',
-                        dest     = 'r1',
-                        required = True,
-                        help     = 'Forward read file (.fastq, fastq.gz, \
-                                    comma-separated list of files')
-
-    # Required if -pe is set
-    parser.add_argument('-r2','--reverse_read',
-                        action   = 'store',
-                        dest     = 'r2',
-                        required = False,
-                        help     = 'Forward read file (.fastq, fastq.gz, \
-                                    comma-separated list of files')
-    
-    # Bowtie Alignment modes ( Must be one or other )
-    parser.add_argument('-a','--alignment_mode',
-                        action   = 'store',
-                        dest     = 'alignment_mode',
-                        required = False,
-                        default  = 'end-to-end',
-                        choices  = ('end-to-end','local'),
-                        help     = 'Alignment Mode [Default "end-to-end"]')
+    run_sam(arguments)
 
 
-    parser.add_argument('--preset',
-                        action   = 'store',
-                        dest     = 'preset_option',
-                        required = False,
-                        default  = 'sensitive',
-                        choices  = ('sensitive','very-sensitive','fast','very-fast'),
-                        help     = 'Preset Options [Default "sensitive"]')
-
-
-    # Bowtie output options
-    parser.add_argument('--alignment',
-                        action   = 'store',
-                        dest     = 'alignment',
-                        required = False,
-                        default  = 'alignment.sam',
-                        help     = 'Output name for alignment')
-
-    parser.add_argument('-nt',
-                        action   = 'store',
-                        dest     = 'nt',
-                        required = False,
-                        default  = 8,
-                        help     = 'Number of CPU threads')
-
-
-    # Samtools options
-    parser.add_argument('--depth',
-                        action   = 'store_true',
-                        dest     = 'depth',
-                        required = False,
-                        default  = False,
-                        help     = 'Write Samtools depth')
-
-    # Fastqc
-    parser.add_argument('--fastqc',
-                        action   = 'store_true',
-                        dest     = 'fastqc',
-                        required = False,
-                        default  = False,
-                        help     = 'Run FastQC')
-
-    parser.add_argument('--fastqc-folder',
-                        action   = 'store',
-                        help     = 'Folder containing FastQC files.')
-    
-
-    arg_dict = vars(parser.parse_args())
-
-    # Update arguments
-    if arg_dict['alignment_mode'] == 'local' :
-            arg_dict.update({'preset_option': arg_dict['preset_option']+'-local'})
-
-    arg_dict.update({'alignment': os.path.join(arg_dict['project'],arg_dict['alignment'])})
-
-
-    return arg_dict
-
-
-if __name__ == "__main__":
-    main()
+# Alignment Mode 
+if arguments['run_mode'] == 'trim' : 
+    run_trim(arguments)
