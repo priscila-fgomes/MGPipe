@@ -18,8 +18,7 @@ def run_fastqc(arguments) :
     if not os.path.isdir(arguments['reads_out_folder']) :
         os.makedirs(arguments['reads_out_folder'])
 
-    print(f'''
-[Running] FastQC for {len(fastq_files)} reads found in {arguments['reads_folder']}
+    print(f'''{bcolors.BLUE}[Running]{bcolors.ENDC} for {len(fastq_files)} reads found in {arguments['reads_folder']}
           Using {arguments['nt']} CPU threads, Please Wait.''')
 
     start_time = time()
@@ -32,22 +31,4 @@ def run_fastqc(arguments) :
     
     print(f'''{bcolors.GREEN}[  Done   ]{bcolors.ENDC} in {elapsed_time/60:5.2f} minutes\n''')
 
-    print (f'''Quality reports written on {arguments['reads_out_folder']} ''')
-
-# MultiQC report ############
-    print(f'''
-[Running] Generating MultiQC report ...''')
-
-
-    cmd=['multiqc','-f',arguments['reads_out_folder'],'--outdir',arguments['reads_out_folder']]
-    
-    start_time = time()
-    subprocess.run(cmd, stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-    end_time = time()
-    elapsed_time = end_time - start_time
-
-    print(f'''{bcolors.GREEN}[  Done   ]{bcolors.ENDC} in {elapsed_time/60:5.2f} minutes\n''')
-
-    print('''open MultiQC report with:
-
- firefox test/output/multiqc_report.html''')
+    print (f'''Quality reports written on {arguments['reads_out_folder']} \n''')

@@ -11,7 +11,11 @@ def run_trim(arguments) :
     fastq_files=glob.glob(arguments['reads_folder']+'/*.fastq')
 
     cmd=['trim_galore']
-    cmd.extend(['-j','4','--quality','20','--fastqc','--length',arguments['length'],'-o',arguments['reads_out_folder']])
+    cmd.extend(['-j','4',
+                '--quality',str(arguments['quality']),
+                '--fastqc',
+                '--length',str(arguments['length']),
+                '-o',arguments['reads_out_folder']])
     
     if arguments['read_mode'] == 'paired-end' :
         cmd.extend(['--paired'])
@@ -25,15 +29,14 @@ def run_trim(arguments) :
     if not os.path.isdir(arguments['reads_out_folder']) :
         os.makedirs(arguments['reads_out_folder'])
 
-    print(f'''
-[ Running ] Trim_galore for {len(fastq_files)} reads found in {arguments['reads_folder']}''',end='\t')
+    print(f'''{bcolors.BLUE}[ Running ]{bcolors.ENDC} Trim_galore for {len(fastq_files)} reads found in {arguments['reads_folder']}''',end='\n')
 
     if arguments['verbose'] : 
-        print(f'''{' '.join(map(str,cmd))}''')
+        print(f'''{bcolors.BLUE}[ Verbose ]{bcolors.ENDC} Command line\n{' '.join(map(str,cmd))}''')
+
 
     start_time = time()
-
-    
+  
     with open(os.path.join(arguments['reads_out_folder'],"trim_galore.log"), "wb") as file:
         subprocess.run(cmd, stdout=file,stderr=subprocess.DEVNULL)
 
@@ -42,23 +45,3 @@ def run_trim(arguments) :
     
     #print(f'''{bcolors.GREEN}[  Done   ]{bcolors.ENDC} in {elapsed_time/60:5.2f} minutes\n''')
     print(f'''{bcolors.GREEN}[ Done ]{bcolors.ENDC} ''')
-
-
-
-    # MultiQC report ############
-    print(f'''
-[Running] Generating MultiQC report ...''')
-
-
-    cmd=['multiqc','-f',arguments['reads_out_folder'],'--outdir',arguments['reads_out_folder']]
-    
-    start_time = time()
-    subprocess.run(cmd, stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-    end_time = time()
-    elapsed_time = end_time - start_time
-
-    print(f'''{bcolors.GREEN}[  Done   ]{bcolors.ENDC} in {elapsed_time/60:5.2f} minutes\n''')
-
-    print('''open MultiQC report with:
-
- firefox test/output/multiqc_report.html''')

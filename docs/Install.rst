@@ -43,4 +43,7 @@ Detailed install
   # Addtional DataScience and plotting tools
   conda install pandas 
   conda install seaborn
+  conda install psutil
 
+  conda install -c plotly plotly
+  conda install -c plotly plotly-orca

@@ -21,8 +21,8 @@ def get_cmd_line():
                         action   = 'store',
                         dest     = 'run_mode',
                         metavar  = '',
-                        choices  = ['quality-control','trim','alignment'],
-                        help     = 'Run mode [quality-control, tim or alignment]')
+                        choices  = ['quality-control','trim','alignment','analyzes','report'],
+                        help     = 'Run mode [quality-control, trim, alignment, analyzes, report]')
 
     general.add_argument('-nt','--threads',
                         action   = 'store',
@@ -41,17 +41,26 @@ def get_cmd_line():
                         action   = 'store_true',
                         dest     = 'overwrite',
                         help     = 'Overwrite outputs')
-    
+
+    # Bowtie/Trim specific arguments
+    bowtie_trim = parser.add_argument_group('Read Mode for alignments','Bowtie or Trim_galore')
+    bowtie_trim.add_argument('-rm','--read-mode',
+                        action   = 'store',
+                        dest     = 'read_mode',
+                        choices  = ('single-end','paired-end'),
+                        metavar  = '',
+                        help     = 'Read mode [single-end or paired-end]')
+
 # Fastqc
     fastqc = parser.add_argument_group('Quality Control','Specific arguments for FastQC')
     
-    fastqc.add_argument('--reads_folder',
+    fastqc.add_argument('--reads-folder',
                         action   = 'store',
                         dest     = 'reads_folder',
                         metavar  = '',
                         help     = 'Folder containing FastQC files.')
 
-    fastqc.add_argument('--reads_out',
+    fastqc.add_argument('--reads-out',
                         action   = 'store',
                         dest     = 'reads_out_folder',
                         metavar  = '',
@@ -64,32 +73,26 @@ def get_cmd_line():
                         action   = 'store',
                         dest     = 'adapter',
                         metavar  = '',
-                        help     = 'remove adapter sequence (eg. "AAAAA")')
-    
+                        help     = 'Remove adapter sequence (eg. "AAAAA")')
     
     trim_galore.add_argument('--length',
                         action   = 'store',
                         dest     = 'length',
+                        default  = 20,
                         metavar  = '',
-                        help     = 'trim at fix sequence lenght.')
+                        help     = 'Trim at fix sequence lenght.')
 
     trim_galore.add_argument('--quality',
                         action   = 'store',
                         dest     = 'quality',
+                        default  = 20,
                         metavar  = '',
-                        help     = 'trim by quality cutoff (eg. 20)')
+                        help     = 'Trim by quality cutoff (eg. 20)')
 
 
     # Bowtie Alignment modes ( Must be one or other )
     bowtie = parser.add_argument_group('Alignment','Specific arguments for Bowtie2')
 
-    # Bowtie specific arguments
-    bowtie.add_argument('-rm','--read-mode',
-                        action   = 'store',
-                        dest     = 'read_mode',
-                        choices  = ('single-end','paired-end'),
-                        metavar  = '',
-                        help     = 'Read mode [single-end or paired-end]')
 
     bowtie.add_argument('-r1','--forward-read',
                         action   = 'store',
@@ -113,25 +116,32 @@ def get_cmd_line():
                         choices  = ('end-to-end','local'),
                         help     = 'Alignment Mode [Default "end-to-end"]')
 
-
     bowtie.add_argument('-pr','--preset',
                         action   = 'store',
                         dest     = 'preset',
                         choices  = ('sensitive','very-sensitive','fast','very-fast'),
+                        default  = 'sensitive',
                         metavar  = '',
-                        help     = 'Preset Options [Default "sensitive"]')
+                        help     = 'Preset Options: [sensitive], very-sensitive, fast, very-fast')
 
     # Bowtie output options
     bowtie.add_argument('--alignment',
                         action   = 'store',
                         dest     = 'alignment',
                         default  = 'alignment.sam',
+                        metavar  = '',
                         help     = 'Output name for alignment')
 
 
 # Samtools options
-    samtools = parser.add_argument_group('Analyzes','Specific arguments for Samtools')
-    
+    samtools = parser.add_argument_group('Samtools arguments')
+
+    samtools.add_argument('--sam',
+                        action   = 'store',
+                        dest     = 'sam',
+                        metavar  = '',
+                        help     = 'Alignment file (.sam)')
+
     samtools.add_argument('--depth',
                         action   = 'store_true',
                         dest     = 'depth',
@@ -142,14 +152,25 @@ def get_cmd_line():
                         dest     = 'stats',
                         help     = 'Write alignment log')
 
-    samtools.add_argument('--report',
-                        action   = 'store_true',
-                        dest     = 'report',
-                        help     = 'Write alignment report')
+#    samtools.add_argument('--report',
+#                        action   = 'store_true',
+#                        dest     = 'report',
+#                        help     = 'Write alignment report')
+    samtools.add_argument('--cutofft',
+                        action   = 'store',
+                        dest     = 'sam_report_cutoff',
+                        type     = float,
+                        default  = 1.0,
+                        metavar  = '',
+                        help     = 'Percentage of Mapped reads cutoff [1]')
 
-
+# Multiqc options
+    multiqc = parser.add_argument_group('Multiqc Report')
     
-
+    multiqc.add_argument('--multiqc',
+                        action   = 'store_true',
+                        dest     = 'multiqc',
+                        help     = 'Enable MultiQC report')
    
 
     arg_dict = vars(parser.parse_args())

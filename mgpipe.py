@@ -14,16 +14,17 @@ from src.menu_run_mode  import *
 from src.menu_fastq     import *
 from src.menu_trim      import *
 from src.menu_alignment import *
+from src.menu_sam       import *
 
 # Run modules
 from src.run_fastqc      import *
 from src.run_trim        import *
 from src.run_bowtie2     import *
 from src.run_sam         import *
+from src.run_multiqc     import *
 
 # summary
 from src.write_summary import *
-
 
 # A warm welcome to the users :) 
 welcome() 
@@ -54,9 +55,7 @@ if arguments['run_mode'] == 'quality-control' :
 
     arguments.update({'reads_out_folder': os.path.join(arguments['project'],arguments['reads_out_folder'])})
 
-    run_fastqc(arguments)
-    
-    
+    run_fastqc(arguments)    
 
 
 # Alignment Mode 
@@ -88,9 +87,23 @@ if arguments['run_mode'] == 'alignment' :
     
     run_bowtie2(arguments)
 
+
+
+if arguments['run_mode'] == 'analyzes' : 
+    if not arguments['sam'] :
+        arguments['sam'] = menu_sam()
+
+    write_summary_sam(arguments)
+
     run_sam(arguments)
+
+    report_sam(arguments)
 
 
 # Alignment Mode 
 if arguments['run_mode'] == 'trim' : 
     run_trim(arguments)
+
+
+if arguments['multiqc'] or arguments['run_mode'] == 'report':
+    run_multiqc(arguments)
