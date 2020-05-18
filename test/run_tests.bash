@@ -41,6 +41,11 @@ mgpipe.py -v \
              --alignment-mode end-to-end \
              --alignment paired.sam
 
+# Run test for Samtools.
+echo "Testing Samtools"
+../mgpipe.py --project test --mode analyzes --depth --stats --sam test/paired.sam 
+
+
 
 
 

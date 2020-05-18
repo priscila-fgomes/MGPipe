@@ -69,11 +69,10 @@ Alignment Outputs
        Sorted BAM : {bam_sorted}
         BAM index : {bam_sorted}.bai
  Alignment Report : {arguments['project']}/report.tsv
+ Alignment Report : {arguments['project']}/report.html
   Alignment Depth : {arguments['project']}/depth.tsv
     Alignment Log : {arguments['project']}/alignment.log
 
-Report
------------------------------------------------------------
 
 ''')
 
