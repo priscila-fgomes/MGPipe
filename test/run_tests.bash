@@ -1,5 +1,8 @@
 #!/bin/bash
 
+CONDA_BASE=$(conda info --base)
+source $CONDA_BASE/etc/profile.d/conda.sh
+
 # Activate MGPipe environment
 conda activate MGPipe 
 
@@ -11,7 +14,7 @@ echo "Testing Quality control"
 
 
 #Run test for Quality control, with multiqc report
-mgpipe.py -v \
+../mgpipe.py -v \
           --project test \
           --mode quality-control \
           --reads-folder mg_reads \
@@ -81,7 +84,7 @@ echo "Done testing MGPipe"
 
 #Run test for alignment of paired-end reads
 
-python mgpipe.py \
+../mgpipe.py \
 --project teste \
 --forward_read mg_reads/Hum5000GE_R1.fastq  \
 --reverse_read mg_reads/Hum5000GE_R2.fastq  \
