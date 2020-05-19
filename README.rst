@@ -38,6 +38,9 @@ For installation instructions, check INSTALL.rst on docs
   # Install using the autoinstall script :)
   ./autoinstall
 
+  # Make sure you always activate MGPipe environment before running !
+  conda activate MGPipe
+  
   # Usage:  
   mgpipe.py -h
 
