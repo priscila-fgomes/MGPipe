@@ -25,6 +25,7 @@ Contributors:
 For installation instructions, check INSTALL.rst on docs
 
 .. code-block:: bash 
+
   # Install Miniconda from:
   https://docs.conda.io/en/latest/miniconda.html
  
