@@ -102,3 +102,10 @@ Install summary
 -------------------------------------------------
 "
 
+echo -e "
+Please add MGPipe to your \${PATH};
+
+# Add this to your ~/.bashrc
+export MGPipe=${PWD}
+export PATH=\$PATH:\${MGPipe}
+"

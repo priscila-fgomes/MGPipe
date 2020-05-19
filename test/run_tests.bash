@@ -50,7 +50,7 @@ file=$2
 if [ -f ${file} ] ; then 
     echo -e "\e[32m[ Done ]\e[39m ${analysis}"
 else
-    echo -e "\e[32m[ Fail ]\e[39m ${analysis}"
+    echo -e "\e[31m[ Fail ]\e[39m ${analysis}"
 fi
 }
 
@@ -62,74 +62,76 @@ conda activate MGPipe
 echo "[ Testing ] FastQC - Quality control"
 
 #Run myproject for Quality control, with multiqc report
-../mgpipe.py --project myproject \
-             --mode quality-control \
-             --reads-folder mg_reads 
+mgpipe.py --project myproject \
+          --mode quality-control \
+          --reads-folder example_reads 
 
 
 echo "[ Testing ] Trim Galore - Trimming"
-../mgpipe.py --project myproject \
-             --mode trim \
-             --length 140 \
-             --quality 20 \
-             --read-mode paired-end \
-             --reads-folder mg_reads 
+mgpipe.py --project myproject \
+          --mode trim \
+          --length 140 \
+          --quality 20 \
+          --read-mode paired-end \
+          --reads-folder example_reads 
 
 
 echo "[ Testing ] Bowtie2 - Aligment of single-end reads, end-to-end"
-../mgpipe.py --project myproject \
-             --mode alignment \
-             --forward-read mg_reads/Hum5000GE_R1.fastq \
-             --read-mode single-end \
-             --alignment-mode end-to-end \
-             --alignment single.sam
+mgpipe.py --project myproject \
+          --mode alignment \
+          --forward-read example_reads/Hum5000GE_R1.fastq \
+          --read-mode single-end \
+          --alignment-mode end-to-end \
+          --alignment single.sam
 
 
 echo "[ Testing ] Bowtie2 - Aligment of paired-end reads, end-to-end"
-../mgpipe.py --project myproject \
-             --mode alignment \
-             --forward-read mg_reads/Hum5000GE_R1.fastq \
-             --reverse-read mg_reads/Hum5000GE_R2.fastq \
-             --read-mode paired-end \
-             --alignment-mode end-to-end \
-             --alignment paired.sam
+mgpipe.py --project myproject \
+          --mode alignment \
+          --forward-read example_reads/Hum5000GE_R1.fastq \
+          --reverse-read example_reads/Hum5000GE_R2.fastq \
+          --read-mode paired-end \
+          --alignment-mode end-to-end \
+          --alignment paired.sam
 
 echo "[ Testing ] Bowtie2 - Aligment of single-end reads, local"
-../mgpipe.py --project myproject \
-             --mode alignment \
-             --forward-read mg_reads/Hum5000GE_R1.fastq \
-             --read-mode single-end \
-             --alignment-mode local \
-             --alignment single_local.sam
+mgpipe.py --project myproject \
+          --mode alignment \
+          --forward-read example_reads/Hum5000GE_R1.fastq \
+          --read-mode single-end \
+          --alignment-mode local \
+          --alignment single_local.sam
 
 
 echo "[ Testing ] Bowtie2 - Aligment of paired-end reads, local"
-../mgpipe.py --project myproject \
-             --mode alignment \
-             --forward-read mg_reads/Hum5000GE_R1.fastq \
-             --reverse-read mg_reads/Hum5000GE_R2.fastq \
-             --read-mode paired-end \
-             --alignment-mode local \
-             --alignment paired_local.sam
+mgpipe.py --project myproject \
+          --mode alignment \
+          --forward-read example_reads/Hum5000GE_R1.fastq \
+          --reverse-read example_reads/Hum5000GE_R2.fastq \
+          --read-mode paired-end \
+          --alignment-mode local \
+          --alignment paired_local.sam
 
 echo "[ Testing ] Samtools - Alignment analyzes"
-../mgpipe.py --project myproject --mode analyzes --depth --stats --sam myproject/paired.sam 
-
+mgpipe.py --project myproject \
+          --mode analyzes \
+          --sam myproject/paired.sam \
+          --depth --stats
 
 echo "[ Testing ] MultiQC"
-../mgpipe.py --project myproject --mode report
+mgpipe.py --project myproject \
+          --mode report
 
-echo "[ DONE ]"
+echo "[ DONE ] Testing"
 
 }
 
 run_report() {
-echo "
+echo -e "
 ##############################################
 #          MGPipe - Test Summary             #
 ##############################################
-"
-echo -e "
+
 Install summary
 -------------------------------------------------
      bowtie2 : ${status['bowtie2']}
@@ -142,11 +144,9 @@ Install summary
       pandas : ${status['pandas']}
      seaborn : ${status['seaborn']}
       psutil : ${status['psutil']}
--------------------------------------------------
-"
-echo "
+
 Test results
------------------------------------------------------------"
+-------------------------------------------------"
 report 'Quality control'             'myproject/Hum5000GE_R1_fastqc.html'
 report 'Trimming'                    'myproject/Hum5000GE_R2_val_1.fq'
 report 'Single alignment end-to-end' 'myproject/single.sam'
@@ -156,10 +156,8 @@ report 'Paired alignment local'      'myproject/paired_local.sam'
 report 'Analysis'                    'myproject/report.html'
 report 'MultiQC'                     'myproject/multiqc_report.html'
 
+echo -e "\e[32m[ DONE ]\e[0m Testing MGPipe "
 
-echo "
-Done testing MGPipe
-"
 }
 
 

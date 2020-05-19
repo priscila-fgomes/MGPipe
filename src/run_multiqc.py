@@ -7,7 +7,7 @@ def run_multiqc(arguments) :
     
     start_time = time()
 # MultiQC report ############
-    print(f'''{bcolors.BLUE}[Running]{bcolors.ENDC} Generating quality report ...''')
+    print(f'''{bcolors.BLUE}[Running]{bcolors.ENDC} Generating MultiQC report ...''')
 
 #    cmd=['multiqc','-f',arguments['reads_out_folder'],'--outdir',arguments['reads_out_folder']]
     cmd=['multiqc','-f',arguments['project'],'--outdir',arguments['project']]
@@ -16,7 +16,7 @@ def run_multiqc(arguments) :
     subprocess.run(cmd)#, stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 
     print(f'''
-Open quality report with:
+Open MultiQC report with:
 
 firefox ./{arguments['project']}/multiqc_report.html''')
 
