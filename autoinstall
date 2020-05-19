@@ -30,9 +30,10 @@ conda activate MGPipe
 echo "
 [ MGPipe ] Installing required packages
 " ; sleep 1
-conda install -y -c conda-forge -c bioconda  samtools bowtie2 fastqc trim-galore multiqc pandas seaborn psutil plotly plotly-orca
+conda install -y -c bioconda  samtools bowtie2 fastqc trim-galore
+conda install -y pandas seaborn psutil 
 conda install -y -c plotly plotly plotly-orca
-
+pip install multiqc
 
 ################################
 # PART 2 - Verify installation #

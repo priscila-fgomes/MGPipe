@@ -36,7 +36,7 @@ def run_bowtie2(arguments) :
     start_time = time()
 
     with open(os.path.join(arguments['project'],"bowtie2.log"), "wb") as file:
-        subprocess.run(cmd, stdout=file,stderr=subprocess.DEVNULL)
+        subprocess.run(cmd, stdout=subprocess.DEVNULL,stderr=file)
 
     end_time = time()
     elapsed_time = end_time - start_time

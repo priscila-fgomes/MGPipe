@@ -25,9 +25,9 @@ def run_sam(arguments):
 
     # Run sam report
     cmd=['samtools','idxstats', bam_sorted]
-    with open(os.path.join(arguments['project'],"report.tsv"), "w") as file:
+    with open(os.path.join(arguments['project'],"report.idxstat"), "w") as file:
         file.write('Reference gene\tReference sequence length\tMapped read count\tUnmapped read count\n')
-    with open(os.path.join(arguments['project'],"report.tsv"), "a") as file:
+    with open(os.path.join(arguments['project'],"report.idxstat"), "a") as file:
         subprocess.run(cmd, stdout=file)
 
     # Optional arguments
@@ -68,7 +68,7 @@ Alignment Outputs
          SAM->BAM : {bam}
        Sorted BAM : {bam_sorted}
         BAM index : {bam_sorted}.bai
- Alignment Report : {arguments['project']}/report.tsv
+ Alignment Report : {arguments['project']}/report.idxstat
  Alignment Report : {arguments['project']}/report.html
   Alignment Depth : {arguments['project']}/depth.tsv
     Alignment Log : {arguments['project']}/alignment.log
@@ -84,7 +84,10 @@ def report_sam(arguments):
     import plotly.express as px
     import plotly.graph_objects as go
 
-    df = pd.read_table(os.path.join(arguments['project'],'report.tsv'))
+    df = pd.read_table(os.path.join(arguments['project'],'report.idxstat'))
+#    df =  pd.read_table(os.path.join(arguments['project'],'report.idxstat'),header=None)
+#    df.columns=['Reference gene','Reference sequence length','Mapped read count','Unmapped read count']
+
     df.apply(pd.to_numeric, errors='ignore')
 
     df['Percentage of Mapped reads']=(df['Mapped read count']*100)/df['Mapped read count'].sum()  

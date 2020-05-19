@@ -13,7 +13,7 @@ def run_multiqc(arguments) :
     cmd=['multiqc','-f',arguments['project'],'--outdir',arguments['project']]
 
 
-    subprocess.run(cmd, stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    subprocess.run(cmd)#, stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 
     print(f'''
 Open quality report with:

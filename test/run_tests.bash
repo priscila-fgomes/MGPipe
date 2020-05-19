@@ -1,46 +1,82 @@
 #!/bin/bash
 
+clear
+# Declare an associative array (so I can use "status)
+declare -A status
+
+# Config
+###########################################################
 CONDA_BASE=$(conda info --base)
 source $CONDA_BASE/etc/profile.d/conda.sh
 
+
+# Functions
+###########################################################
+verify_install() {
+echo -ne "\e[95m[ MGPipe ]\e[0m Verifying installation. Please Wait... "
+
+# List of programs this script checks
+required_programs='bowtie2 samtools fastqc multiqc trim-galore plotly plotly-orca pandas seaborn psutil' 
+
+if [ "$(conda env list |grep MGPipe)" == "" ] ; then
+    echo -e '[Error] MGPipe environment not found \nplease review docs/Install.rst instructions'
+    exit 1
+fi
+
+# Activate MGPipe environment
+conda activate MGPipe
+
+# Get conda package list
+#echo "Getting Conda package list. Please wait"
+conda_list=$(conda list |awk '{print $1}')
+
+for program in ${required_programs} ; do
+
+    if [[ ${conda_list} == *${program}* ]] ; then
+        status[${program}]='\e[32mINSTALLED\e[39m'
+    else
+        status[${program}]='\e[31mNOT INSTALLED\e[39m'
+    fi
+
+done
+echo -e '\e[32m[ DONE ]\e[39m'
+}
+
+report() {
+
+analysis=$1
+file=$2
+
+if [ -f ${file} ] ; then 
+    echo -e "\e[32m[ Done ]\e[39m ${analysis}"
+else
+    echo -e "\e[32m[ Fail ]\e[39m ${analysis}"
+fi
+}
+
+
+run_tests() {
 # Activate MGPipe environment
 conda activate MGPipe 
 
-
-### algo aqui pra checar se os programas foram instalados...
-
-
-echo "Testing Quality control"
-
+echo "[ Testing ] FastQC - Quality control"
 
 #Run myproject for Quality control, with multiqc report
 ../mgpipe.py --project myproject \
              --mode quality-control \
-             --reads-folder mg_reads \
-             --reads-out results \
-             --multiqc
-echo "Done"
-
-echo "Testing Trimming"
+             --reads-folder mg_reads 
 
 
-#Run myproject for Trimming
+echo "[ Testing ] Trim Galore - Trimming"
 ../mgpipe.py --project myproject \
              --mode trim \
              --length 140 \
              --quality 20 \
              --read-mode paired-end \
-             --reads-folder mg_reads \
-             --reads-out results \
-             --multiqc
-
-echo "Done"
+             --reads-folder mg_reads 
 
 
-
-echo "Bowtie --------------"
-echo "Testing aligment of single-end reads"
-# Run myproject for alignment of single-end reads
+echo "[ Testing ] Bowtie2 - Aligment of single-end reads, end-to-end"
 ../mgpipe.py --project myproject \
              --mode alignment \
              --forward-read mg_reads/Hum5000GE_R1.fastq \
@@ -48,11 +84,8 @@ echo "Testing aligment of single-end reads"
              --alignment-mode end-to-end \
              --alignment single.sam
 
-echo "Done"
 
-echo "Testing alignment of paired-end reads"
-
-# Run myproject for alignment of paired-end reads
+echo "[ Testing ] Bowtie2 - Aligment of paired-end reads, end-to-end"
 ../mgpipe.py --project myproject \
              --mode alignment \
              --forward-read mg_reads/Hum5000GE_R1.fastq \
@@ -61,11 +94,7 @@ echo "Testing alignment of paired-end reads"
              --alignment-mode end-to-end \
              --alignment paired.sam
 
-echo "Done"
-
-
-echo "Testing aligment of single-end reads"
-# Run myproject for alignment of single-end reads
+echo "[ Testing ] Bowtie2 - Aligment of single-end reads, local"
 ../mgpipe.py --project myproject \
              --mode alignment \
              --forward-read mg_reads/Hum5000GE_R1.fastq \
@@ -73,11 +102,8 @@ echo "Testing aligment of single-end reads"
              --alignment-mode local \
              --alignment single_local.sam
 
-echo "Done"
 
-echo "Testing alignment of paired-end reads"
-
-# Run myproject for alignment of paired-end reads
+echo "[ Testing ] Bowtie2 - Aligment of paired-end reads, local"
 ../mgpipe.py --project myproject \
              --mode alignment \
              --forward-read mg_reads/Hum5000GE_R1.fastq \
@@ -85,48 +111,59 @@ echo "Testing alignment of paired-end reads"
              --read-mode paired-end \
              --alignment-mode local \
              --alignment paired_local.sam
-echo "Done"
 
-
-echo "Analyzing with Samtools"
-
-# Run myproject for Samtools.
-echo "Testing Samtools"
+echo "[ Testing ] Samtools - Alignment analyzes"
 ../mgpipe.py --project myproject --mode analyzes --depth --stats --sam myproject/paired.sam 
 
 
-echo "Done"
+echo "[ Testing ] MultiQC"
+../mgpipe.py --project myproject --mode report
 
-
-# Test summary
-
-report() {
-
-analysis=$1
-file=$2
-
-if [ -f ${file} ] ; then 
-
-    echo -e "\e[32m[ Done ]\e[39m ${analysis}"
-
-else
-
-    echo -e "\e[32m[ Fail ]\e[39m ${analysis}"
-
-fi
+echo "[ DONE ]"
 
 }
 
+run_report() {
+echo "
+##############################################
+#          MGPipe - Test Summary             #
+##############################################
+"
+echo -e "
+Install summary
+-------------------------------------------------
+     bowtie2 : ${status['bowtie2']}
+    samtools : ${status['samtools']}
+      fastqc : ${status['fastqc']} 
+     multiqc : ${status['multiqc']}
+ trim_galore : ${status['trim-galore']}
+      plotly : ${status['plotly']}
+ plotly-orca : ${status['plotly-orca']}
+      pandas : ${status['pandas']}
+     seaborn : ${status['seaborn']}
+      psutil : ${status['psutil']}
+-------------------------------------------------
+"
+echo "
+Test results
+-----------------------------------------------------------"
+report 'Quality control'             'myproject/Hum5000GE_R1_fastqc.html'
+report 'Trimming'                    'myproject/Hum5000GE_R2_val_1.fq'
+report 'Single alignment end-to-end' 'myproject/single.sam'
+report 'Paired alignment end-to-end' 'myproject/paired.sam'
+report 'Single alignment local'      'myproject/single_local.sam'
+report 'Paired alignment local'      'myproject/paired_local.sam'
+report 'Analysis'                    'myproject/report.html'
+report 'MultiQC'                     'myproject/multiqc_report.html'
 
-# Run report for each Test ( Test name + Expected output file )
-report 'Single alignment' 'myproject/single.sam'
-report 'Paired alignment' 'myproject/paired.sam'
 
-echo "Done myprojecting MGPipe"
-
-
-#Run myproject for Analyzes
+echo "
+Done testing MGPipe
+"
+}
 
 
-#Open reports
-
+# Program
+verify_install
+run_tests
+run_report
