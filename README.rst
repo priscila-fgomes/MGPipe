@@ -22,18 +22,23 @@ Contributors:
 
 
 
-
-
-
-
 For installation instructions, check INSTALL.rst on docs
 
 .. code-block:: bash 
  
-  # Quick Install
+  # Download MGPipe repository
+  git clone https://github.com/priscila-fgomes/MGPipe.git 
+  
+  # Go to the program folder
+  cd MGPipe
+
+  # Install using the autoinstall script :)
   ./autoinstall
 
   # Usage:  
   mgpipe.py -h
 
+  # To test, go to test folder and run "run_tests.bash"
+  cd test/
+  ./run_tests.bash
 
