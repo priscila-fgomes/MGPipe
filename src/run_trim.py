@@ -5,8 +5,6 @@ def run_trim(arguments) :
     from time import time
     from src.colors import bcolors
 
-    arguments['reads_out_folder'] = os.path.join(arguments['project'],arguments['reads_out_folder'])
-
     # List all files from reads_folder
     fastq_files=glob.glob(arguments['reads_folder']+'/*.fastq')
 
@@ -15,7 +13,7 @@ def run_trim(arguments) :
                 '--quality',str(arguments['quality']),
                 '--fastqc',
                 '--length',str(arguments['length']),
-                '-o',arguments['reads_out_folder']])
+                '-o',arguments['project']])
     
     if arguments['read_mode'] == 'paired-end' :
         cmd.extend(['--paired'])
@@ -26,10 +24,10 @@ def run_trim(arguments) :
     for fastq in fastq_files :
         cmd.append(fastq)
 
-    if not os.path.isdir(arguments['reads_out_folder']) :
-        os.makedirs(arguments['reads_out_folder'])
+#    if not os.path.isdir(arguments['reads_out_folder']) :
+#        os.makedirs(arguments['reads_out_folder'])
 
-    print(f'''{bcolors.BLUE}[ Running ]{bcolors.ENDC} Trim_galore for {len(fastq_files)} reads found in {arguments['reads_folder']}''',end='\n')
+    print(f'''{bcolors.BLUE}[ Running ]{bcolors.ENDC} Trim_galore for {len(fastq_files)} reads found in {arguments['project']}''',end='\n')
 
     if arguments['verbose'] : 
         print(f'''{bcolors.BLUE}[ Verbose ]{bcolors.ENDC} Command line\n{' '.join(map(str,cmd))}''')
@@ -37,7 +35,7 @@ def run_trim(arguments) :
 
     start_time = time()
   
-    with open(os.path.join(arguments['reads_out_folder'],"trim_galore.log"), "wb") as file:
+    with open(os.path.join(arguments['project'],"trim_galore.log"), "wb") as file:
         subprocess.run(cmd, stdout=file,stderr=subprocess.DEVNULL)
 
     end_time = time()

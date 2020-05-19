@@ -49,11 +49,12 @@ if not arguments['run_mode'] :
 if arguments['run_mode'] == 'quality-control' : 
     if not arguments['reads_folder'] :
         arguments['reads_folder'] = menu_fastq()
-    
-    if not arguments['reads_out_folder'] :
-        arguments['reads_out_folder'] = menu_fastq_out(arguments)
 
-    arguments.update({'reads_out_folder': os.path.join(arguments['project'],arguments['reads_out_folder'])})
+# Please REMOVE reads_out_folder variable  after testing    
+#    if not arguments['reads_out_folder'] :
+#        arguments['reads_out_folder'] = menu_fastq_out(arguments)
+
+#    arguments.update({'reads_out_folder': os.path.join(arguments['project'],arguments['reads_out_folder'])})
 
     run_fastqc(arguments)    
 

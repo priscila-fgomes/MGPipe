@@ -14,6 +14,7 @@ def menu_fastq() :
             menu_fastq()
     return option
 
+# No longer necessary
 def menu_fastq_out(arguments) :
     import os
     from src.colors import bcolors

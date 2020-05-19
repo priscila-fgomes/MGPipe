@@ -19,27 +19,4 @@ def menu_trim(arguments):
         quit()
     else :
         print('Invalid option')
-        menu_read_mode()
-
-
-
- # Trim_galore
-    trim_galore = parser.add_argument_group('Trimming','Specific arguments for Trimming')
-    
-    trim_galore.add_argument('--adapter',
-                        action   = 'store',
-                        dest     = 'adapter',
-                        metavar  = '',
-                        help     = 'remove adapter sequence (eg. "AAAAA")')
-    
-    trim_galore.add_argument('--length',
-                        action   = 'store',
-                        dest     = 'length',
-                        metavar  = '',
-                        help     = 'trim at fix sequence lenght.')
-
-    trim_galore.add_argument('--quality',
-                        action   = 'store',
-                        dest     = 'quality',
-                        metavar  = '',
-                        help     = 'trim by quality cutoff (eg. 20)')
+        menu_trim()

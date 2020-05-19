@@ -9,14 +9,17 @@ def run_multiqc(arguments) :
 # MultiQC report ############
     print(f'''{bcolors.BLUE}[Running]{bcolors.ENDC} Generating quality report ...''')
 
-    cmd=['multiqc','-f',arguments['reads_out_folder'],'--outdir',arguments['reads_out_folder']]
+#    cmd=['multiqc','-f',arguments['reads_out_folder'],'--outdir',arguments['reads_out_folder']]
+    cmd=['multiqc','-f',arguments['project'],'--outdir',arguments['project']]
+
 
     subprocess.run(cmd, stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 
     print(f'''
 Open quality report with:
 
-firefox ./{arguments['reads_out_folder']}/multiqc_report.html''')
+firefox ./{arguments['project']}/multiqc_report.html''')
+
 
     end_time = time()
     elapsed_time = end_time - start_time
