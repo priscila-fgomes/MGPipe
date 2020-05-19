@@ -3,6 +3,13 @@
 # Activate MGPipe environment
 conda activate MGPipe 
 
+
+### algo aqui pra checar se os programas foram instalados...
+
+
+echo "Testing Quality control"
+
+
 #Run test for Quality control, with multiqc report
 mgpipe.py -v \
           --project test \
@@ -10,6 +17,10 @@ mgpipe.py -v \
           --reads-folder mg_reads \
           --reads-out results \
           --multiqc
+echo "Done"
+
+echo "Testing Trimming"
+
 
 #Run test for Trimming
 ../mgpipe.py -v \
@@ -22,6 +33,10 @@ mgpipe.py -v \
              --reads-out results \
              --multiqc
 
+echo "Done"
+
+echo "Testing aligment of single-end reads"
+
 # Run test for alignment of single-end reads
 ../mgpipe.py -v \
              --project test \
@@ -30,6 +45,10 @@ mgpipe.py -v \
              --read-mode single-end \
              --alignment-mode end-to-end \
              --alignment single.sam
+
+echo "Done"
+
+echo "Testing alignment of paired-end reads"
 
 # Run test for alignment of paired-end reads
 ../mgpipe.py -v \
@@ -41,12 +60,16 @@ mgpipe.py -v \
              --alignment-mode end-to-end \
              --alignment paired.sam
 
+echo "Done"
+
+echo "Analyzing with Samtools"
+
 # Run test for Samtools.
 echo "Testing Samtools"
 ../mgpipe.py --project test --mode analyzes --depth --stats --sam test/paired.sam 
 
 
-
+echo "Done"
 
 
 if [ ! -f test/single.sam ] ; 

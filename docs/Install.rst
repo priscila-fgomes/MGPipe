@@ -10,7 +10,9 @@ Quick Install
 
     conda create -n MGPipe python=3.7
     conda activate MGPipe
-    conda install -y -c bioconda samtools bowtie2 fastqc trim-galore pandas seaborn plotly-orca
+    conda install -y -c bioconda samtools bowtie2 fastqc trim-galore
+    conda install -y pandas seaborn
+    conda install -y -c plotly plotly-orca
     pip install multiqc
 
 
