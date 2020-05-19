@@ -13,21 +13,19 @@ conda activate MGPipe
 echo "Testing Quality control"
 
 
-#Run test for Quality control, with multiqc report
-../mgpipe.py -v \
-          --project test \
-          --mode quality-control \
-          --reads-folder mg_reads \
-          --reads-out results \
-          --multiqc
+#Run myproject for Quality control, with multiqc report
+../mgpipe.py --project myproject \
+             --mode quality-control \
+             --reads-folder mg_reads \
+             --reads-out results \
+             --multiqc
 echo "Done"
 
 echo "Testing Trimming"
 
 
-#Run test for Trimming
-../mgpipe.py -v \
-             --project test \
+#Run myproject for Trimming
+../mgpipe.py --project myproject \
              --mode trim \
              --length 140 \
              --quality 20 \
@@ -38,11 +36,12 @@ echo "Testing Trimming"
 
 echo "Done"
 
-echo "Testing aligment of single-end reads"
 
-# Run test for alignment of single-end reads
-../mgpipe.py -v \
-             --project test \
+
+echo "Bowtie --------------"
+echo "Testing aligment of single-end reads"
+# Run myproject for alignment of single-end reads
+../mgpipe.py --project myproject \
              --mode alignment \
              --forward-read mg_reads/Hum5000GE_R1.fastq \
              --read-mode single-end \
@@ -53,9 +52,8 @@ echo "Done"
 
 echo "Testing alignment of paired-end reads"
 
-# Run test for alignment of paired-end reads
-../mgpipe.py -v \
-             --project test \
+# Run myproject for alignment of paired-end reads
+../mgpipe.py --project myproject \
              --mode alignment \
              --forward-read mg_reads/Hum5000GE_R1.fastq \
              --reverse-read mg_reads/Hum5000GE_R2.fastq \
@@ -65,41 +63,69 @@ echo "Testing alignment of paired-end reads"
 
 echo "Done"
 
+
+echo "Testing aligment of single-end reads"
+# Run myproject for alignment of single-end reads
+../mgpipe.py --project myproject \
+             --mode alignment \
+             --forward-read mg_reads/Hum5000GE_R1.fastq \
+             --read-mode single-end \
+             --alignment-mode local \
+             --alignment single_local.sam
+
+echo "Done"
+
+echo "Testing alignment of paired-end reads"
+
+# Run myproject for alignment of paired-end reads
+../mgpipe.py --project myproject \
+             --mode alignment \
+             --forward-read mg_reads/Hum5000GE_R1.fastq \
+             --reverse-read mg_reads/Hum5000GE_R2.fastq \
+             --read-mode paired-end \
+             --alignment-mode local \
+             --alignment paired_local.sam
+echo "Done"
+
+
 echo "Analyzing with Samtools"
 
-# Run test for Samtools.
+# Run myproject for Samtools.
 echo "Testing Samtools"
-../mgpipe.py --project test --mode analyzes --depth --stats --sam test/paired.sam 
+../mgpipe.py --project myproject --mode analyzes --depth --stats --sam myproject/paired.sam 
 
 
 echo "Done"
 
 
-if [ ! -f test/single.sam ] ; 
-    echo "Alignment failed"
-    exit 1
+# Test summary
 
-echo "Done testing MGPipe"
+report() {
 
+analysis=$1
+file=$2
 
-#Run test for alignment of paired-end reads
+if [ -f ${file} ] ; then 
 
-../mgpipe.py \
---project teste \
---forward_read mg_reads/Hum5000GE_R1.fastq  \
---reverse_read mg_reads/Hum5000GE_R2.fastq  \
---read_mode paired-end \
---alignment_mode end-to-end \
---alignment paired.sam
+    echo -e "\e[32m[ Done ]\e[39m ${analysis}"
 
-if [ ! -f test/paired.sam ] ;
-    echo "Alignment failed"
-    exit 1
+else
 
-echo "Done testing MGPipe"
+    echo -e "\e[32m[ Fail ]\e[39m ${analysis}"
+
+fi
+
+}
 
 
-#Run test for Analyzes
+# Run report for each Test ( Test name + Expected output file )
+report 'Single alignment' 'myproject/single.sam'
+report 'Paired alignment' 'myproject/paired.sam'
+
+echo "Done myprojecting MGPipe"
+
+
+#Run myproject for Analyzes
 
 
 #Open reports

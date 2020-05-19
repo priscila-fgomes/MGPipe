@@ -73,7 +73,6 @@ Alignment Outputs
   Alignment Depth : {arguments['project']}/depth.tsv
     Alignment Log : {arguments['project']}/alignment.log
 
-
 ''')
 
 

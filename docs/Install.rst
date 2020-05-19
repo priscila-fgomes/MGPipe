@@ -10,10 +10,9 @@ Quick Install
 
     conda create -n MGPipe python=3.7
     conda activate MGPipe
-    conda install -y -c bioconda samtools bowtie2 fastqc trim-galore
-    conda install -y pandas seaborn psutils
+    conda install -y -c conda-forge -c bioconda  samtools bowtie2 fastqc trim-galore multiqc pandas seaborn psutil plotly plotly-orca
     conda install -y -c plotly plotly plotly-orca
-    pip install multiqc
+
 
 
 Detailed install
@@ -25,6 +24,10 @@ Detailed install
 
   # Activate the MGPipe environment
   conda activate MGPipe
+
+  # Multiqc aggregate results from bioinformatics analyses across many samples into a single report. Install with:
+  # Make sure you install Multiqc FIRST.
+  conda install -y -c bioconda -c conda-forge multiqc
 
   # Bowtie2 is an ultrafast and memory-efficient tool for aligning sequencing reads to long reference sequences. Install with:
   conda install -y -c bioconda bowtie2
@@ -38,8 +41,6 @@ Detailed install
   # Trim-Galore is a wrapper tool around Cutadapt and FastQC to consistently apply quality and adapter trimming to FastQ files. Install with:
   conda install -y -c bioconda trim-galore
 
-  # Multiqc aggregate results from bioinformatics analyses across many samples into a single report. Install with:
-  pip install multiqc
 
   # Addtional DataScience and plotting tools
   conda install -y pandas 

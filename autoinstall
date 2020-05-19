@@ -1,0 +1,103 @@
+#!/bin/bash
+####################
+# PART 1 - Install #
+####################
+
+clear
+
+echo "
+
+##############################################
+#             MGPipe Installer               #
+##############################################
+
+"
+
+# Enable anaconda.
+CONDA_BASE=$(conda info --base)
+source $CONDA_BASE/etc/profile.d/conda.sh
+
+echo "
+[ MGPipe ] Creating anaconda environment
+" 
+conda create -n MGPipe python=3.7 -y 
+
+echo "
+[ MGPipe ] Activating MGPipe environment
+"
+conda activate MGPipe
+
+echo "
+[ MGPipe ] Installing required packages
+" ; sleep 1
+conda install -y -c conda-forge -c bioconda  samtools bowtie2 fastqc trim-galore multiqc pandas seaborn psutil plotly plotly-orca
+conda install -y -c plotly plotly plotly-orca
+
+
+################################
+# PART 2 - Verify installation #
+################################
+echo "
+[ MGPipe ] Verifying installation 
+"
+
+
+# List of programs this script checks
+required_programs='
+bowtie2
+samtools
+fastqc
+multiqc
+trim-galore 
+plotly 
+plotly-orca 
+pandas 
+seaborn 
+psutil' 
+
+
+if [ "$(conda env list |grep MGPipe)" == "" ] ; then
+    echo '[Error] MGPipe environment not found
+please review docs/Install.rst instructions'
+    exit 1
+fi
+
+# Activate MGPipe environment
+conda activate MGPipe
+
+# Get conda package list
+echo "Getting Conda package list. Please wait"
+conda_list=$(conda list |awk '{print $1}')
+
+
+
+# Declare an associative array (so I can use "status)
+declare -A status
+
+for program in ${required_programs} ; do
+
+    if [[ ${conda_list} == *${program}* ]] ; then
+        status[${program}]='\e[32mINSTALLED\e[39m'
+    else
+        status[${program}]='\e[31mNOT INSTALLED\e[39m'
+    fi
+
+done
+
+echo -e "
+
+Install summary
+-------------------------------------------------
+     bowtie2 : ${status['bowtie2']}
+    samtools : ${status['samtools']}
+      fastqc : ${status['fastqc']} 
+     multiqc : ${status['multiqc']}
+ trim_galore : ${status['trim-galore']}
+      plotly : ${status['plotly']}
+ plotly-orca : ${status['plotly-orca']}
+      pandas : ${status['pandas']}
+     seaborn : ${status['seaborn']}
+      psutil : ${status['psutil']}
+-------------------------------------------------
+"
+

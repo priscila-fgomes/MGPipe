@@ -26,10 +26,13 @@ Contributors:
 
 
 
-For installation instructions, check INSTALL.rst on docs 
+For installation instructions, check INSTALL.rst on docs
 
 .. code-block:: bash 
  
+  # Quick Install
+  ./autoinstall
+
   # Usage:  
   mgpipe.py -h
 
