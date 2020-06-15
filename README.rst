@@ -41,6 +41,11 @@ For installation details and error FAQ check INSTALL.rst and ISSUES.rst on docs
   # Make sure you always activate MGPipe environment before running !
   conda activate MGPipe
   
+  #Please add MGPipe to your $PATH. Add these lines to your .bashrc or .bash_profile
+  export MGPipe=${PWD}
+  export PATH=\$PATH:\${MGPipe}
+
+  
   # Usage:  
   mgpipe.py -h
 
