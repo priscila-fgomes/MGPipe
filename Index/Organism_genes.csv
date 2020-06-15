@@ -1,0 +1,88 @@
+Organism,Reference gene
+Acinetobacter baumanii,GS_AciB_OXA51
+Acinetobacter baumannii,OXA_51_like
+Bacillus anthracis,GS_BA_capA
+Bacillus anthracis str. 'Ames Ancestor',Capsular_polysaccharide_biosynthesis_protein_A_CapA
+Bacillus anthracis str. 'Ames Ancestor',DNA_Gyrase_B_gyrB
+Bacillus anthracis str. 'Ames Ancestor',Lethal_factor_lef
+Brucella abortus,GS_BruA_omp
+Brucella abortus 2308,Outer_Membrane_Transporter_omp
+Brucella melitensis,GS_BruM_tetraP
+Brucella melitensis ATCC 23457,Tetratricopeptide_repeat_family_protein_BMEII0466
+Brucella suis,GS_BruS_ABCtp
+Brucella suis ATCC 23445,Amino_Acid_ABC_transporter_permease_ABCtransporter
+Burkholderia cepacia ATCC 25416,DNA_recombinase_A_RecA
+Burkholderia mallei,Chemotax_protein_MotB
+Burkholderia mallei,GS_BurkM_Hyp
+Burkholderia mallei,GS_BurkM_MotB
+Burkholderia mallei ATCC 23344,Hypothetical_protein_BMA2524
+Burkholderia pseudomallei,GS_BurkPM_fliC
+Burkholderia pseudomallei,GS_BurkPM_rspU
+Burkholderia pseudomallei 1710b,Ribosomal_protein_subunit_S21_rspU
+Burkholderia pseudomallei K96243,Flagelin_fliC
+Chlamydia psittaci,GS_ClaP_pbpB
+Chlamydia psittaci GR9,Penicillin-binding_protein_pbpB
+Clostridioides difficile 630,Clostridium_difficile_toxin_A_tcdA
+Clostridioides difficile 630,Clostridium_difficile_toxin__B_tcdB
+Clostridium botulinum,nontoxic-nonhaemagglutinin__NTNH
+Clostridium botulinum,GS_CloB_ntnh
+Clostridium perfringens,Clostridium_perfringens_enterotoxin_cpe
+Clostridium perfringens,GS_CloP_cpe
+Clostridium sordellii,GS_CloS_tcdL
+Clostridium tetani,GS_CloT_tetX
+Clostridium tetani E88,Tetanus_toxin_tetX
+Corynebacterium diphteriae,GS_CoryS_DT
+Corynebacterium diphtheriae PW8,Diphteriae_toxin
+Coxiella burnetii,GS_CoxB_com1
+Coxiella burnetii,GS_CoxB_icd
+Coxiella burnetii RSA 493,Isocitrate_dehydrogenase_icd
+Coxiella burnetii RSA 493,Outer_membrane-associated_immunoreactive_protein_com1
+Escherichia coli,GS_EcoliO157_eae
+Escherichia coli,GS_EcoliO157_fliC
+Escherichia coli,GS_EcoliO157_rfbE
+Escherichia coli  O157:H7,GDP-perosamine_syntase_rfbE
+Escherichia coli O157:H7 str. EDL933,Flagelin_fliC
+Escherichia coli O157:H7 str. EDL933,Intimin_adherence_protein_eae
+Francisella tularensis,GS_FT_tul4
+Francisella tularensis subsp. tularensis SCHU S4,Major_membrane_protein_tul4_(lpnA_gene)
+Klebsiella pneumoniae subsp. pneumoniae HS11286,Beta-lactamase_SHV-11
+Mycobacterium abscessus,DNA_gyrase_subunit_B_(gyrB)
+Mycobacterium abscessus,GS_MycA_gyrB
+Mycobacterium tuberculosis,DNA_gyrase_subunit_B_(gyrB)
+Mycobacterium tuberculosis,groEL_gene_(Hsp65)
+Neisseria meningitidis MC58,Capsular_transport_protein__ctrA
+Paeniclostridium sordellii,Lethal_toxin_tcsL
+Proteus mirabilis HI4320,Urease_operon_transcriptional_activator_ureR
+Pseudomonas aeruginosa,GS_PseA_ecfX
+Pseudomonas aeruginosa PAO1,ecfX
+Rickettsia prowazekii str. Madrid E,Citrate_Synthase_gltA
+Rickettsia prowazekii],GS_Ric_gltA
+Salmonella enterica subsp. enterica serovar Typhimurium str. LT2,Flagelin_fliC
+Salmonella enterica subsp. enterica serovar Typhimurium str. LT2,Salmonella_virulence_plasmid_spvC
+Shigella boydii,Invasive_plasmid_antigen_H_ipaH_(boydii)
+Shigella dysenteriae,GS_ShigD_stxA
+Shigella dysenteriae,GS_ShigD_stxB
+Shigella dysenteriae Sd197,Invasive_plasmid_antigen_H_ipaH_(dysenteriae)
+Shigella dysenteriae Sd197,Shiga_toxin_A_stxA_(stx1)
+Shigella dysenteriae Sd197,Shiga_toxin_B_stxB_(stx2)
+Shigella flexneri,Invasive_plasmid_antigen_H_ipaH_(flexneri)
+Shigella sonnei,Invasive_plasmid_antigen_H_ipaH_(sonnei)
+Shigella sp,GS_Shig_ipaH
+Staphylococcus aureus,Aminoacyltransferase_FemA
+Staphylococcus aureus,Staphylococcal_enterotoxin_B_entB
+Staphylococcus aureus,GS_StapA_entB
+Staphylococcus epidermidis RP62A,DNA_recombinase_recN_gene
+Staphylococcus warneri,GS_StaW_sodA
+Staphylococcus warneri SG1,sodA
+Streptococcus agalactiae,glnQ
+Streptococcus agalactiae,GS_StrepA_glnQ
+Streptococcus pneumoniae,GS_StreP_ply
+Streptococcus pneumoniae D39,Pneumolysin_ply
+Vibrio cholerae O1 biovar El Tor str. N16961,cholera_enterotoxin_subunit_A_ctxA
+Vibrio cholerae O1 biovar El Tor str. N16961,cholera_enterotoxin_subunit_B_ctxB
+Yersinia pestis CO92,F1_capsule-anchoring_protein_caf1A
+Yersinia pestis CO92,V_antigen_lcrV
+Yersinia pestis EV76-CN,Yersinia_murine_toxin_ymt
+,GS_16S_rRNA_V3
+,GS_16S_rRNA_V4
+,GS_16S_rRNA_V6V7
