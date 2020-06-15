@@ -148,7 +148,7 @@ Install summary
 Test results
 -------------------------------------------------"
 report 'Quality control'             'myproject/Hum5000GE_R1_fastqc.html'
-report 'Trimming'                    'myproject/Hum5000GE_R2_val_1.fq'
+report 'Trimming'                    'myproject/Hum5000GE_R2_val_2.fq'
 report 'Single alignment end-to-end' 'myproject/single.sam'
 report 'Paired alignment end-to-end' 'myproject/paired.sam'
 report 'Single alignment local'      'myproject/single_local.sam'
