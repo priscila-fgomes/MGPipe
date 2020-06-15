@@ -19,4 +19,6 @@ Temporary fix:
   # Uninstall and downgrade openssl to version 1.0.2
   brew uninstall --ignore-dependencies openssl
   brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/30fd2b68feb458656c2da2b91e577960b11c42f4/Formula/openssl.rb
+  ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/
+  ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib/
  
