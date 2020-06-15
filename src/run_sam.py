@@ -76,7 +76,7 @@ Alignment Outputs
 ''')
 
 
-def report_sam(arguments):
+def report_sam_old(arguments):
     import os
     import pandas  as pd
 #    import seaborn as sns
@@ -109,3 +109,32 @@ def report_sam(arguments):
     #    fig.show()
     fig.write_image(os.path.join(arguments['project'],'report.pdf'))
     fig.write_html( os.path.join(arguments['project'],'report.html'))
+
+def report_sam(arguments):
+    import os
+    import sys
+    import pandas  as pd
+    from matplotlib import pyplot as plt
+    import plotly.express as px
+    import plotly.graph_objects as go
+
+    df = pd.read_table(os.path.join(arguments['project'],'report.idxstat'))
+    df2 = pd.read_csv(os.path.join(os.path.dirname(sys.argv[0]),'Index','Organism_genes.csv'))
+
+    df3 = pd.merge(df,df2)
+    df3['Percentage of Mapped reads']=(df3['Mapped read count']*100)/df3['Mapped read count'].sum()
+    df3 = df3[df3['Mapped read count'] > 0]
+    df3.to_csv(os.path.join(arguments['project'],'general_report.csv'),index=False)
+    df4 = df3.groupby('Organism').sum()
+    df4.reset_index(inplace=True)
+
+    df_toplot=df4[df4['Mapped read count'] > 0]
+    common_props = dict(labels=df_toplot['Organism'],
+                    values=df_toplot['Mapped read count'])
+    fig = go.Figure(data=[go.Pie(common_props,
+                                textposition='outside')])
+    fig.update_traces(marker=dict(line=dict(color='white', width=2)))
+    fig.update_layout(title="Percentage of mapped reads")
+
+    fig.write_image(os.path.join(arguments['project'],'report.pdf'))
+    fig.write_html(os.path.join(arguments['project'],'report.html'))
