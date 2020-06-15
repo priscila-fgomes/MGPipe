@@ -107,7 +107,7 @@ def report_sam_old(arguments):
     fig.update_traces(marker=dict(line=dict(color='white', width=2)))
 
     #    fig.show()
-    fig.write_image(os.path.join(arguments['project'],'report.pdf'))
+    fig.write_image(os.path.join(arguments['project'],'report.pdf',width=800, height=600))
     fig.write_html( os.path.join(arguments['project'],'report.html'))
 
 def report_sam(arguments):
