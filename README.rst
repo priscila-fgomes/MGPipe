@@ -22,7 +22,7 @@ Contributors:
 
 
 
-For installation details, check INSTALL.rst on docs
+For installation details and error FAQ check INSTALL.rst and Issues.rst on docs
 
 .. code-block:: bash 
 
