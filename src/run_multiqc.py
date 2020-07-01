@@ -10,7 +10,7 @@ def run_multiqc(arguments) :
     print(f'''{bcolors.BLUE}[Running]{bcolors.ENDC} Generating MultiQC report ...''')
 
 #    cmd=['multiqc','-f',arguments['reads_out_folder'],'--outdir',arguments['reads_out_folder']]
-    cmd=['multiqc','-f',arguments['project'],'--outdir',arguments['project']]
+    cmd=['multiqc','-f',arguments['project'],'--outdir',arguments['project'],'-c',os.path.join(os.path.dirname(sys.argv[0]),'src','multiqc_config.yaml')]
 
 
     subprocess.run(cmd)#, stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
