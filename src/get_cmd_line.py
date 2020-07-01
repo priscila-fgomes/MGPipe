@@ -80,7 +80,7 @@ def get_cmd_line():
                         dest     = 'length',
                         default  = 20,
                         metavar  = '',
-                        help     = 'Trim at fix sequence lenght.')
+                        help     = 'Discard reads that became shorter than length INT because of either quality or adapter trimming.')
 
     trim_galore.add_argument('--quality',
                         action   = 'store',
