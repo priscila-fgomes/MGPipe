@@ -10,9 +10,9 @@
 #  3. <working directory>/multiqc_config.yaml
 #################################################################
 
-title: "Analyzes report"
-subtitle: null
-intro_text: "Generated using MGPipe"
+title: "MGPipe report"
+subtitle: null 
+intro_text: "Analyzes generated automatically with MultiQC"
 report_comment: "Use the toolbox to export selected graphs and tables"
 report_header_info: null
 show_analysis_paths: True
