@@ -61,14 +61,14 @@ conda activate MGPipe
 
 echo "[ Testing ] FastQC - Quality control"
 
-#Run myproject for Quality control, with multiqc report
-mgpipe.py --project myproject \
+#Run mytest for Quality control, with multiqc report
+mgpipe.py --project mytest \
           --mode quality-control \
           --reads-folder example_reads 
 
 
 echo "[ Testing ] Trim Galore - Trimming"
-mgpipe.py --project myproject \
+mgpipe.py --project mytest \
           --mode trim \
           --length 100 \
           --quality 20 \
@@ -77,7 +77,7 @@ mgpipe.py --project myproject \
 
 
 echo "[ Testing ] Bowtie2 - Aligment of single-end reads, end-to-end"
-mgpipe.py --project myproject \
+mgpipe.py --project mytest \
           --mode alignment \
           --forward-read example_reads/Hum5000GE_R1.fastq \
           --read-mode single-end \
@@ -86,7 +86,7 @@ mgpipe.py --project myproject \
 
 
 echo "[ Testing ] Bowtie2 - Aligment of paired-end reads, end-to-end"
-mgpipe.py --project myproject \
+mgpipe.py --project mytest \
           --mode alignment \
           --forward-read example_reads/Hum5000GE_R1.fastq \
           --reverse-read example_reads/Hum5000GE_R2.fastq \
@@ -95,7 +95,7 @@ mgpipe.py --project myproject \
           --alignment paired.sam
 
 echo "[ Testing ] Bowtie2 - Aligment of single-end reads, local"
-mgpipe.py --project myproject \
+mgpipe.py --project mytest \
           --mode alignment \
           --forward-read example_reads/Hum5000GE_R1.fastq \
           --read-mode single-end \
@@ -104,7 +104,7 @@ mgpipe.py --project myproject \
 
 
 echo "[ Testing ] Bowtie2 - Aligment of paired-end reads, local"
-mgpipe.py --project myproject \
+mgpipe.py --project mytest \
           --mode alignment \
           --forward-read example_reads/Hum5000GE_R1.fastq \
           --reverse-read example_reads/Hum5000GE_R2.fastq \
@@ -113,13 +113,13 @@ mgpipe.py --project myproject \
           --alignment paired_local.sam
 
 echo "[ Testing ] Samtools - Alignment analyzes"
-mgpipe.py --project myproject \
+mgpipe.py --project mytest \
           --mode analyzes \
-          --sam myproject/paired.sam \
+          --sam paired.sam \
           --depth --stats
 
 echo "[ Testing ] MultiQC"
-mgpipe.py --project myproject \
+mgpipe.py --project mytest \
           --mode report
 
 echo "[ DONE ] Testing"
@@ -147,14 +147,14 @@ Install summary
 
 Test results
 -------------------------------------------------"
-report 'Quality control'             'myproject/Hum5000GE_R1_fastqc.html'
-report 'Trimming'                    'myproject/Hum5000GE_R2_val_2.fq'
-report 'Single alignment end-to-end' 'myproject/single.sam'
-report 'Paired alignment end-to-end' 'myproject/paired.sam'
-report 'Single alignment local'      'myproject/single_local.sam'
-report 'Paired alignment local'      'myproject/paired_local.sam'
-report 'Analysis'                    'myproject/report.html'
-report 'MultiQC'                     'myproject/multiqc_report.html'
+report 'Quality control'             'mytest/raw_data/Hum5000GE_R1_fastqc.html'
+report 'Trimming'                    'mytest/raw_data/Hum5000GE_R2_val_*.fq'
+report 'Single alignment end-to-end' 'mytest/single.sam'
+report 'Paired alignment end-to-end' 'mytest/paired.sam'
+report 'Single alignment local'      'mytest/single_local.sam'
+report 'Paired alignment local'      'mytest/paired_local.sam'
+report 'Analysis'                    'mytest/species.html'
+report 'MultiQC'                     'mytest/multiqc_report.html'
 
 echo -e "\e[32m[ DONE ]\e[0m Testing MGPipe "
 

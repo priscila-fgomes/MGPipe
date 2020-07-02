@@ -36,12 +36,17 @@ arguments = get_cmd_line()
 if not arguments['project'] :
     arguments.update({'project': str(input(f'{bcolors.BLUE}# Choose a project name:{bcolors.ENDC}\n'))})
 
-# Update alignment 
-arguments.update({'alignment': os.path.join(arguments['project'],arguments['alignment'])})
-
+# Create project, raw data and log folders.
 if not os.path.isdir(arguments['project']) :
     os.makedirs(arguments['project'])
 
+if not os.path.isdir(os.path.join(arguments['project'],'raw_data')) :
+    os.makedirs(os.path.join(arguments['project'],'raw_data'))
+
+if not os.path.isdir(os.path.join(arguments['project'],'log')) :
+    os.makedirs(os.path.join(arguments['project'],'log'))
+
+# Sanity check for run_mode
 if not arguments['run_mode'] :
     arguments.update({'run_mode': menu_run_mode()})
 
@@ -50,19 +55,11 @@ if arguments['run_mode'] == 'quality-control' :
     if not arguments['reads_folder'] :
         arguments['reads_folder'] = menu_fastq()
 
-# Please REMOVE reads_out_folder variable  after testing    
-#    if not arguments['reads_out_folder'] :
-#        arguments['reads_out_folder'] = menu_fastq_out(arguments)
-
-#    arguments.update({'reads_out_folder': os.path.join(arguments['project'],arguments['reads_out_folder'])})
-
     run_fastqc(arguments)    
-
 
 # Alignment Mode 
 if arguments['run_mode'] == 'alignment' : 
 
-#    if [arguments['read_mode'] or arguments['alignment_mode'] or arguments['preset'] or arguments['r1'] :
     print (f'''{bcolors.WARNING}
 [Setup] Bowtie2 Alignment{bcolors.ENDC}
     ''')
@@ -83,8 +80,6 @@ if arguments['run_mode'] == 'alignment' :
 
     if arguments['read_mode'] in ['paired-end'] and not arguments['r2'] :
         arguments['r2'] = str(input('Reverse read file(s) '))   # Required if Paired ends.
-
-    write_summary(arguments)
     
     run_bowtie2(arguments)
 

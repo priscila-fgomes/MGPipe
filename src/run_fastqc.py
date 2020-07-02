@@ -13,7 +13,7 @@ def run_fastqc(arguments) :
     cmd=['fastqc']
     for fastq in fastq_files :
         cmd.append(fastq)
-    cmd.extend(['-o',arguments['project'],'-t',arguments['nt']])
+    cmd.extend(['-o',os.path.join(arguments['project'],'raw_data'),'-t',arguments['nt']])
     #cmd.extend(['-o',arguments['reads_out_folder'],'-t',arguments['nt']])
     
     #if not os.path.isdir(arguments['reads_out_folder']) :
@@ -25,7 +25,7 @@ def run_fastqc(arguments) :
     start_time = time()
 
     #with open(os.path.join(arguments['reads_out_folder'],"fastqc.log"), "wb") as file:
-    with open(os.path.join(arguments['project'],"fastqc.log"), "wb") as file:
+    with open(os.path.join(arguments['project'],"log","fastqc.log"), "wb") as file:
         subprocess.run(cmd, stdout=file,stderr=subprocess.DEVNULL)
 
     end_time = time()

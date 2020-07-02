@@ -13,7 +13,7 @@ def run_trim(arguments) :
                 '--quality',str(arguments['quality']),
                 '--fastqc',
                 '--length',str(arguments['length']),
-                '-o',arguments['project']])
+                '-o',os.path.join(arguments['project'],"raw_data")])
     
     if arguments['read_mode'] == 'paired-end' :
         cmd.extend(['--paired'])
@@ -27,7 +27,7 @@ def run_trim(arguments) :
 #    if not os.path.isdir(arguments['reads_out_folder']) :
 #        os.makedirs(arguments['reads_out_folder'])
 
-    print(f'''{bcolors.BLUE}[ Running ]{bcolors.ENDC} Trim_galore for {len(fastq_files)} reads found in {arguments['project']}''',end='\n')
+    print(f'''{bcolors.BLUE}[ Running ]{bcolors.ENDC} Trim_galore for {len(fastq_files)} reads found in {arguments['reads_folder']}''',end='\n')
 
     if arguments['verbose'] : 
         print(f'''{bcolors.BLUE}[ Verbose ]{bcolors.ENDC} Command line\n{' '.join(map(str,cmd))}''')
@@ -35,7 +35,7 @@ def run_trim(arguments) :
 
     start_time = time()
   
-    with open(os.path.join(arguments['project'],"trim_galore.log"), "wb") as file:
+    with open(os.path.join(arguments['project'],"log","trim_galore.log"), "wb") as file:
         subprocess.run(cmd, stdout=file,stderr=subprocess.DEVNULL)
 
     end_time = time()

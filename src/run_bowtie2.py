@@ -4,6 +4,14 @@ def run_bowtie2(arguments) :
     import subprocess   
     from time import time
     from src.colors import bcolors
+    from src.write_summary import write_summary
+
+    # Update alignment path
+    arguments.update({'alignment': os.path.join(arguments['project'],arguments['alignment'])})
+
+    # Write summary
+    write_summary(arguments)
+
 
     if os.path.isfile(arguments['alignment']) and not arguments['overwrite'] :
         print(f'''
@@ -35,7 +43,7 @@ def run_bowtie2(arguments) :
     
     start_time = time()
 
-    with open(os.path.join(arguments['project'],"bowtie2.log"), "wb") as file:
+    with open(os.path.join(arguments['project'],"log","bowtie2.log"), "wb") as file:
         subprocess.run(cmd, stdout=subprocess.DEVNULL,stderr=file)
 
     end_time = time()
