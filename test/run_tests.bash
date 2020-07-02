@@ -70,7 +70,7 @@ mgpipe.py --project myproject \
 echo "[ Testing ] Trim Galore - Trimming"
 mgpipe.py --project myproject \
           --mode trim \
-          --length 100 \ 
+          --length 100 \
           --quality 20 \
           --read-mode paired-end \
           --reads-folder example_reads 

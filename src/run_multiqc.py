@@ -1,4 +1,5 @@
 def run_multiqc(arguments) :
+    import sys
     import os
     import glob
     import subprocess   
