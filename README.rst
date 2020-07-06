@@ -24,11 +24,11 @@ MGPipe was developped to analyze sequencing reads from human or environmental sa
 
 For installation details and error FAQ check INSTALL.rst and ISSUES.rst on docs
 
-.. code-block:: bash 
 
 Installation:
 -------------
 
+.. code-block:: bash 
 
   # Install Miniconda from:
   https://docs.conda.io/en/latest/miniconda.html
