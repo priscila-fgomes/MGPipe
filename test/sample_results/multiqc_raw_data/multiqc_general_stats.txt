@@ -1,0 +1,6 @@
+Sample	QC (raw)_mqc-generalstats-qc_raw-percent_duplicates	QC (raw)_mqc-generalstats-qc_raw-percent_gc	QC (raw)_mqc-generalstats-qc_raw-avg_sequence_length	QC (raw)_mqc-generalstats-qc_raw-percent_fails	QC (raw)_mqc-generalstats-qc_raw-total_sequences	Trimming_mqc-generalstats-trimming-percent_trimmed	QC (trimmed)_mqc-generalstats-qc_trimmed-percent_duplicates	QC (trimmed)_mqc-generalstats-qc_trimmed-percent_gc	QC (trimmed)_mqc-generalstats-qc_trimmed-avg_sequence_length	QC (trimmed)_mqc-generalstats-qc_trimmed-percent_fails	QC (trimmed)_mqc-generalstats-qc_trimmed-total_sequences	Read mapping_mqc-generalstats-read_mapping-overall_alignment_rate
+Hum5000GE_R1	84.27538045870847	40.0	125.27598470396299	45.45454545454545	231694.0	35.00352627927142						
+Hum5000GE_R1_val_2							59.55667369279934	43.0	209.63137734865484	36.36363636363637	44121.0	
+Hum5000GE_R2	84.093243674847	41.0	127.43557450775592	45.45454545454545	231694.0	39.85038206232128						
+Hum5000GE_R2_val_1							62.94054985154462	43.0	193.6158745268693	45.45454545454545	44121.0	
+bowtie2												10.67

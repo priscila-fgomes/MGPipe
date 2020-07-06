@@ -5,8 +5,12 @@ def run_sam(arguments):
     from src.colors import bcolors
 
     start_time = time()
-    
-    print(f'''[ Running ] Samtools''',end=' ')
+    # Write summary
+    if arguments['run_mode'] != 'auto':
+        summary_sam(arguments)
+
+
+    print(f'''{bcolors.BLUE}[ Running ]{bcolors.ENDC} Alignment analysis (Samtools)''',end='')
 
     # Update alignment path
     arguments.update({'sam': os.path.join(arguments['project'],arguments['sam'])})
@@ -49,10 +53,10 @@ def run_sam(arguments):
     
 #    print(f'''{bcolors.GREEN}[  Done   ]{bcolors.ENDC} in {elapsed_time/60:5.2f} minutes\n''')
     # Lots of TABS to align [ Done ]
-    print(f'''{bcolors.GREEN}\t\t\t[ Done ]{bcolors.ENDC}\n''')
+    print(f'''{bcolors.GREEN}\t[ Done ]{bcolors.ENDC}''')
 
 
-def write_summary_sam(arguments) :
+def summary_sam(arguments) :
 
     bam = arguments['sam'].split('.sam')[0]+'.bam'
     bam_sorted=arguments['sam'].split('.sam')[0]+'_sorted.bam'   

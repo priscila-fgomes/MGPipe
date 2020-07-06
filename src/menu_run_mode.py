@@ -4,6 +4,7 @@ def menu_run_mode() :
 
     print(f'''{bcolors.BLUE}
 Choose run mode:{bcolors.ENDC}
+[0] - GermPLEX (Auto)
 [1] - Quality Control
 [2] - Trim
 [3] - Alignment
@@ -12,6 +13,9 @@ Choose run mode:{bcolors.ENDC}
 [q] - Quit
 ''')
     option=str(input(f'{bcolors.BOLD}Option: {bcolors.ENDC}'))
+
+    if option == '0' :
+        return 'auto'
 
     if option == '1' :
         return 'quality-control'

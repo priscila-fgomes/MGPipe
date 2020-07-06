@@ -1,0 +1,17 @@
+Reference gene,Reference sequence length,Mapped read count,Unmapped read count,Organism,Percentage of Mapped reads
+Aminoacyltransferase_FemA,1263,1025,0,Staphylococcus aureus,9.361585532925382
+Beta-lactamase_SHV-11,861,102,0,Klebsiella pneumoniae subsp. pneumoniae HS11286,0.9315919262033062
+Capsular_transport_protein__ctrA,1176,394,0,Neisseria meningitidis MC58,3.5985021463147318
+cholera_enterotoxin_subunit_A_ctxA,777,1677,0,Vibrio cholerae O1 biovar El Tor str. N16961,15.31646725728377
+cholera_enterotoxin_subunit_B_ctxB,375,5666,0,Vibrio cholerae O1 biovar El Tor str. N16961,51.74901817517581
+Clostridium_difficile_toxin_A_tcdA,8133,32,0,Clostridioides difficile 630,0.29226413371084115
+Clostridium_difficile_toxin__B_tcdB,7101,116,0,Clostridioides difficile 630,1.0594574847017992
+DNA_Gyrase_B_gyrB,1923,396,0,Bacillus anthracis str. 'Ames Ancestor',3.6167686546716595
+DNA_recombinase_recN_gene,1677,415,0,Staphylococcus epidermidis RP62A,3.7903004840624717
+F1_capsule-anchoring_protein_caf1A,2502,217,0,Yersinia pestis CO92,1.9819161567266417
+groEL_gene_(Hsp65),1623,491,0,Mycobacterium tuberculosis,4.484427801625719
+Lethal_factor_lef,2430,17,0,Bacillus anthracis str. 'Ames Ancestor',0.15526532103388438
+Ribosomal_protein_subunit_S21_rspU,1713,2,0,Burkholderia pseudomallei 1710b,0.01826650835692757
+Urease_operon_transcriptional_activator_ureR,882,253,0,Proteus mirabilis HI4320,2.310713307151338
+V_antigen_lcrV,981,24,0,Yersinia pestis CO92,0.2191981002831309
+Yersinia_murine_toxin_ymt,2473,122,0,Yersinia pestis EV76-CN,1.114257009772582

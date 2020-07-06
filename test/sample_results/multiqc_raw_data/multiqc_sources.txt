@@ -1,0 +1,9 @@
+Module	Section	Sample Name	Source
+QC (raw)	all_sections	Hum5000GE_R2	/home/dgomes/github/MGPipe/test/mytest/raw_data/Hum5000GE_R2_fastqc.zip
+QC (raw)	all_sections	Hum5000GE_R1	/home/dgomes/github/MGPipe/test/mytest/raw_data/Hum5000GE_R1_fastqc.zip
+Trimming	all_sections	Hum5000GE_R1	/home/dgomes/github/MGPipe/test/mytest/raw_data/Hum5000GE_R1.fastq_trimming_report.txt
+Trimming	all_sections	Hum5000GE_R2	/home/dgomes/github/MGPipe/test/mytest/raw_data/Hum5000GE_R2.fastq_trimming_report.txt
+QC (trimmed)	all_sections	Hum5000GE_R1_val_2	/home/dgomes/github/MGPipe/test/mytest/raw_data/Hum5000GE_R1_val_2_fastqc.zip
+QC (trimmed)	all_sections	Hum5000GE_R2_val_1	/home/dgomes/github/MGPipe/test/mytest/raw_data/Hum5000GE_R2_val_1_fastqc.zip
+Read mapping	all_sections	bowtie2	/home/dgomes/github/MGPipe/test/mytest/log/bowtie2.log
+Genes report	idxstats	report.idxstat	/home/dgomes/github/MGPipe/test/mytest/raw_data/report.idxstat

@@ -9,6 +9,7 @@ def get_cmd_line():
     # General arguments
     general = parser.add_argument_group('General','General arguments')
 
+    # General arguments
     general.add_argument('-p','--project',
                         action   = 'store',
                         dest     = 'project',
@@ -21,7 +22,7 @@ def get_cmd_line():
                         action   = 'store',
                         dest     = 'run_mode',
                         metavar  = '',
-                        choices  = ['quality-control','trim','alignment','analyzes','report'],
+                        choices  = ['auto','quality-control','trim','alignment','analyzes','report'],
                         help     = 'Run mode [quality-control, trim, alignment, analyzes, report]')
 
     general.add_argument('-nt','--threads',
