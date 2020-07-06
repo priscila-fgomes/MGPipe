@@ -45,7 +45,7 @@ For installation details and error FAQ check INSTALL.rst and ISSUES.rst on docs
   export MGPipe=${PWD}
   export PATH=\$PATH:\${MGPipe}
 
-  # Automatic run:
+  # Automatic run, choose option 0:
   mgpipe.py
   [0] - GermPLEX (Auto)
   
