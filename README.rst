@@ -4,7 +4,11 @@
 MGPipe: Automated analysis of metagenomics amplicons sequencing reads
 =====================================================================
 
-MGPipe was developped to analyze sequencing reads from human or environmental samples and detect pathogenic bacteria of clinical and forense interest. In the GermPLEX (auto) mode, the pipeline will automatically align and analyse the sequencing reads according to our reference database: Germplex DB. Our modular pipeline also allows you to customize the alignment options, reference database and quality control or trim your sequencing reads before alignment.
+MGPipe was developped to analyze sequencing reads from human or environmental samples and detect pathogenic bacteria of clinical and forense interest. 
+
+In the GermPLEX (auto) mode, the pipeline will automatically align and analyse the sequencing reads according to our reference database: Germplex DB. 
+
+Our modular pipeline also allows you to customize the alignment options, reference database and quality control or trim your sequencing reads before alignment.
 
 Supervision:
 ------------
