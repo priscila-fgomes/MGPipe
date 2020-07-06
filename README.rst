@@ -29,6 +29,7 @@ For installation details and error FAQ check INSTALL.rst and ISSUES.rst on docs
 Installation:
 -------------
 
+
   # Install Miniconda from:
   https://docs.conda.io/en/latest/miniconda.html
  
