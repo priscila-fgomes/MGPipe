@@ -20,11 +20,14 @@ Contributors:
 * Victor Hugo Giordano Dias - victorhdias@biof.ufrj.br 
 
 
-MGPipe is a modular pipeline that allows you QC, trimming, alignment and analyzes of your amplicon reads.
+MGPipe was developped to analyze sequencing reads from human or environmental samples and detect pathogenic bacteria of clinical and forense interest. In the GermPLEX (auto) mode, the pipeline will automatically align and analyse the sequencing reads according to our reference database: Germplex DB. Our modular pipeline also allows you to customize the alignment options, reference database and quality control or trim your sequencing reads before alignment.
 
 For installation details and error FAQ check INSTALL.rst and ISSUES.rst on docs
 
 .. code-block:: bash 
+
+Installation:
+-------------
 
   # Install Miniconda from:
   https://docs.conda.io/en/latest/miniconda.html
@@ -45,7 +48,7 @@ For installation details and error FAQ check INSTALL.rst and ISSUES.rst on docs
   export MGPipe=${PWD}
   export PATH=\$PATH:\${MGPipe}
 
-  # Automatic run, choose option 0:
+  # Automatic run, choose option 0. This mode compairs your reads to our GermPLEX Database
   mgpipe.py
   [0] - GermPLEX (Auto)
   
