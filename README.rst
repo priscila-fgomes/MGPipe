@@ -20,7 +20,7 @@ Contributors:
 * Victor Hugo Giordano Dias - victorhdias@biof.ufrj.br 
 
 
-
+MGPipe is a modular pipeline that allows you QC, trimming, alignment and analyzes of your amplicon reads.
 
 For installation details and error FAQ check INSTALL.rst and ISSUES.rst on docs
 
@@ -45,8 +45,11 @@ For installation details and error FAQ check INSTALL.rst and ISSUES.rst on docs
   export MGPipe=${PWD}
   export PATH=\$PATH:\${MGPipe}
 
+  # Automatic run:
+  mgpipe.py
+  [0] - GermPLEX (Auto)
   
-  # Usage:  
+  # Full parameter and modules list:  
   mgpipe.py -h
 
   # To test, go to test folder and run "run_tests.bash"
