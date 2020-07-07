@@ -27,7 +27,7 @@ Contributors:
 
 
 
-Installation:
+Standard installation:
 -------------
 
 .. code-block:: bash 
@@ -61,5 +61,14 @@ Installation:
   # To test, go to test folder and run "run_tests.bash"
   cd test/
   ./run_tests.bash
+  
+ 
+ Installation using Docker:
+ -------------
 
-For other details and error FAQ check INSTALL.rst and ISSUES.rst on docs
+.. code-block:: bash 
+
+  # Install Docker version compatible with your OS: https://docs.docker.com/engine/install/
+  
+  # Download MGPipe image
+  wget 
