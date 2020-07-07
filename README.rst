@@ -69,7 +69,8 @@ Installation using Docker:
 
 .. code-block:: bash 
 
-  Install Docker version compatible with your OS: https://docs.docker.com/engine/install/
+  We prepared the mgpipe docker image which is easiest way to import and run the Pipeline, in this case you don't have to install all required packages.
+  For information on how to install Docker: https://docs.docker.com/engine/install/
   
   # Download MGPipe image
   wget 
