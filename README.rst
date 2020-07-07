@@ -69,7 +69,7 @@ Installation using Docker:
 
 .. code-block:: bash 
 
-  # Install Docker version compatible with your OS: https://docs.docker.com/engine/install/
+  Install Docker version compatible with your OS: https://docs.docker.com/engine/install/
   
   # Download MGPipe image
   wget 
