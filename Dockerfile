@@ -33,7 +33,7 @@ WORKDIR /home/
 #--------------------------------------------
 #RUN conda create -n MGPipe python=3.7 -y
 #RUN conda activate MGPipe
-RUN conda install -y -c bioconda  samtools bowtie2 fastqc trim-galore
+RUN conda install -y -c bioconda  samtools bowtie2 fastqc trim-galore openssl=1.0
 RUN conda install -y pandas seaborn psutil 
 RUN conda install -y -c plotly plotly plotly-orca
 RUN pip install multiqc
