@@ -74,7 +74,7 @@ For information on how to install and configure Docker on your system, visit : h
 .. code-block:: bash 
 
   # Download MGPipe image
-  wget https://drive.google.com/file/d/1oPrZx_mqi-wSStkd1-w2a2fpOmf2GDAL/view?usp=sharing
+  wget https://drive.google.com/file/d/1oPrZx_mqi-wSStkd1-w2a2fpOmf2GDAL/view?usp=sharing 
   
   # Import the image file into Docker:
   docker load < mgpipe_latest.tar.gz
