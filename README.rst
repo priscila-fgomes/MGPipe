@@ -62,9 +62,10 @@ Standard installation:
   cd test/
   ./run_tests.bash
   
+  
  
- Installation using Docker:
- -------------
+Installation using Docker:
+-------------
 
 .. code-block:: bash 
 
@@ -72,3 +73,9 @@ Standard installation:
   
   # Download MGPipe image
   wget 
+  
+  # Import the image file into Docker:
+  docker load < mgpipe_latest.tar.gz
+  
+  # Run docker file
+  docker run -it mgpipe:1.0
