@@ -81,3 +81,10 @@ For information on how to install and configure Docker on your system, visit : h
   
   # Run docker file
   docker run -it mgpipe:1.0
+  
+  # Automatic run, choose option 0. This mode compairs your reads to our GermPLEX Database
+  mgpipe.py
+  [0] - GermPLEX (Auto)
+  
+  # Full parameter and modules list:  
+  mgpipe.py -h
